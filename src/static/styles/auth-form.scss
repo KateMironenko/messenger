@@ -1,0 +1,118 @@
+.auth-form {
+  &__title {
+    font-weight: 500;
+    font-size: 20px;
+    font-family: Roboto;
+    line-height: 20px;
+    margin: 0 0 57px;
+    text-align: center;
+
+    color: #1e1e1e;
+  }
+
+  &__input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+  
+  &__input-label {
+    position: absolute;
+    pointer-events: none;
+    left: 20px;
+    top: 18px;
+    transition: 0.2s ease all;
+  }
+
+  &__input {
+    position: relative;
+
+    label {
+      position: absolute;
+      top: auto;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 13px;
+      left: 0;
+      font-family: Roboto;
+      cursor: text;
+      color: #999999;
+    }
+
+    label,
+    input {
+      transition: all 0.2s;
+      transition-timing-function: ease;
+      transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+  }
+  &__item {
+    font-family: Roboto;
+    border-width: 0 0 1px 0;
+    border-color: #ef9714;
+    border-style: solid;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    color: #1e1e1e;
+    padding: 0 0 7px;
+    margin: 0 0 32px;
+    width: 100%;
+    height: 20px;
+
+    &:active,
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      opacity: 1;
+      transform: scale(0.9) translateY(-100%) translateX(-3px);
+      padding-bottom: 8px;
+    }
+  }
+
+  &__btn-submit {
+    width: 100%;
+    max-width: 280px;
+    height: 37px;
+    background: #ef9714;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 13px;
+    font-family: Roboto;
+    line-height: 13px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: #ffffff;
+    border: none;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &__link {
+    margin: 14px auto 0;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 11px;
+    font-family: Roboto;
+    display: block;
+    text-align: center;
+    color: #ef9714;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
