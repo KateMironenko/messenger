@@ -10,7 +10,7 @@ export const blockTemplate = `
       <img class="profile__avatar-icon_edit" src="{{ pictuteEditImg }}" />
     </button>
 
-    <h1 class="profile__name">{{ name }}</h1>
+    <h1 class="profile__name">{{ firstName }}</h1>
 
     <form name="edit-profile" class="profile__list profile__info-form">
       <div class="profile__item">
