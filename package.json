@@ -1,0 +1,25 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "parcel index.html --port 3000",
+    "start": "npm run build && node server.js",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.2.1",
+    "cssnano": "^5.0.15",
+    "express": "^4.17.2",
+    "parcel": "^2.2.1",
+    "postcss": "^8.2.15",
+    "sass": "^1.49.0"
+  },
+  "dependencies": {}
+}
