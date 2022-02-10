@@ -4,13 +4,13 @@
 
 ### PR link
 
-[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/2)
+[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/3)
 
 ### Design:
 [Design link](https://www.figma.com/file/Iht6sS3niCa1KQ9bduKLdB/Messenger?node-id=0%3A1)
 
 ### Site link
-[Messenger link](https://61ea756b752a0b0007af08b1--wonderful-borg-ff08db.netlify.app/)
+[Messenger link](https://wonderful-borg-ff08db.netlify.app/)
 
 ### Messenger web-application with features:
 
@@ -20,6 +20,8 @@
 -- add members to chat
 -- search messenges
 -- edit profile info
+-- forms validation
+-- TypeScript
 
 ### Project setup
 
