@@ -4,7 +4,7 @@
 
 ### PR link
 
-[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/2)
+[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/3)
 
 ### Design:
 [Design link](https://www.figma.com/file/Iht6sS3niCa1KQ9bduKLdB/Messenger?node-id=0%3A1)
@@ -20,6 +20,8 @@
 -- add members to chat
 -- search messenges
 -- edit profile info
+-- forms validation
+-- TypeScript
 
 ### Project setup
 
