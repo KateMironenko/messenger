@@ -17,18 +17,18 @@ import fileImg from "../../static/images/file-icon.svg";
 import locationImg from "../../static/images/location-icon.svg";
 import Form from "../../components/Form/index";
 import Message from "../../components/Message/index";
-
 import Block from "../../modules/block/Block";
 
-class Chat extends Block {
-  constructor(props: any) {
+type ChatProps = {};
+class Chat extends Block<ChatProps> {
+  constructor(props: ChatProps) {
     super("div", props);
   }
 
   render() {
     this.children.message = new Message({});
     this.children.form = new Form({
-      formClass: this.props.formClass,
+      formClass: "form-message",
       btnName: "Add",
       type: "submit",
       name: "add-user",
@@ -38,10 +38,11 @@ class Chat extends Block {
           inputContainerClass: "auth-form__input",
           inputClass: "auth-form__item",
           inputId: "username-input",
-          inputName: "username",
+          inputName: "login",
           inputType: "text",
           inputPlaceholder: " ",
           inputLabel: "Username",
+          validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
         },
       ],
     });

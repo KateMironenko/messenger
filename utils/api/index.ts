@@ -1,21 +1,11 @@
-const METHODS = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  DELETE: "DELETE",
-};
+import { queryStringify } from "../mydash/queryStringify";
 
-function queryStringify(data: any) {
-  if (typeof data !== "object") {
-    throw new Error("Data must be object");
-  }
-
-  const keys = Object.keys(data);
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
-  }, "?");
+enum METHODS {
+  GET,
+  POST,
+  PUT,
+  DELETE,
 }
-
 class HTTPTransport {
   get = (url: string, options: any = {}) => {
     return this.request(
@@ -59,9 +49,8 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, !!data ? `${url}${queryStringify(data)}` : url);
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -77,7 +66,7 @@ class HTTPTransport {
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
-      if (isGet || !data) {
+      if (!data) {
         xhr.send();
       } else {
         xhr.send(data);

@@ -20,7 +20,7 @@ export class Templator {
         if (val[1]) {
           const tmplValue: string = val[1].trim();
           const data: any = getObject(ctx, tmplValue, {});
-          if (Object.prototype.toString.call(data) === "[object Array]") {
+          if (Array.isArray(data)) {
             let element = "";
 
             for (let index = 0; index < data.length; index++) {

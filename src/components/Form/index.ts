@@ -3,39 +3,50 @@ import Block from "../../modules/block/Block";
 import { blockTemplate } from "./form.tmpl";
 import Button from "../../components/Button/index";
 import Input from "../../components/Input/index";
-import { validate } from "../../../utils/mydash/validation";
 
-export default class Form extends Block {
-  data: any;
-  constructor(props: {} | undefined) {
+type FormProps = {
+  inputs: {
+    inputContainerClass: string;
+    inputClass: string;
+    inputId: string;
+    inputName: string;
+    inputType: string;
+    inputPlaceholder: string;
+    inputLabel: string;
+    value?: string;
+    validations: RegExp;
+  }[];
+  btnName: string;
+  className: string;
+  type: string;
+  name: string;
+  formClass: string;
+};
+export default class Form extends Block<FormProps> {
+  formSubmitData: {
+    [key: string]: string;
+  };
+  constructor(props: FormProps) {
     super("div", props);
-    this.data = {};
+    this.formSubmitData = {};
   }
 
   render() {
-    this.children.inputs = this.props.inputs.map(
-      (inputProps: any, index: number) => {
-        const input: Input = new Input({
-          inputContainerClass: inputProps.inputContainerClass,
-          inputClass: inputProps.inputClass,
-          inputId: inputProps.inputId,
-          inputName: inputProps.inputName,
-          inputType: inputProps.inputType,
-          inputPlaceholder: inputProps.inputPlaceholder,
-          inputLabel: inputProps.inputLabel,
-          valid: false,
-          events: {
-            focusout: (event: Event) => {
-              this._onFocus(index, event);
-            },
-            blur: (event: Event) => {
-              this._onFocus(index, event);
-            },
-          },
-        });
-        return input;
-      }
-    );
+    this.children.inputs = this.props.inputs.map((inputProps: any) => {
+      const input: Input = new Input({
+        inputContainerClass: inputProps.inputContainerClass,
+        inputClass: inputProps.inputClass,
+        inputId: inputProps.inputId,
+        inputName: inputProps.inputName,
+        inputType: inputProps.inputType,
+        inputPlaceholder: inputProps.inputPlaceholder,
+        inputLabel: inputProps.inputLabel,
+        validations: inputProps.validations,
+        valid: false,
+        value: ""
+      });
+      return input;
+    });
 
     this.children.button = new Button({
       className: this.props.className,
@@ -54,52 +65,16 @@ export default class Form extends Block {
     });
   }
 
-  _onFocus(index: number, event: Event): void {
-    const input: EventTarget | null = event.target;
-
-    const { name, value }: any = input;
-
-    if (!this.validate(name, value)) {
-      this._showError(index, value);
-      return;
-    }
-
-    this._hideError(index, value);
-
-    this.children.inputs[index].setProps({
-      value: value,
-    });
-
-    this.data[name] = value;
-  }
-
-  validate(name: string, value: string) {
-    return validate(name, value);
-  }
-
-  _onSend():void {
+  _onSend(): void {
     if (
       !this.children.inputs.some(function (el: any) {
         return !el.props.valid;
       })
     ) {
-      console.log(this.data);
+      this.children.inputs.forEach((element: any) => {
+        this.formSubmitData[element.props.inputName] = element.props.value;
+      });
+      console.log(this.formSubmitData);
     }
-  }
-
-  _showError(index: number, value: string): void {
-    this.children.inputs[index].setProps({
-      valid: false,
-      value: value,
-      inputInvalidClass: "invalid-input",
-    });
-  }
-
-  _hideError(index: number, value: string): void {
-    this.children.inputs[index].setProps({
-      valid: true,
-      value: value,
-      inputInvalidClass: "",
-    });
   }
 }

@@ -1,6 +1,5 @@
 import { blockTemplate } from "./profile.tmpl";
 import "./profile.scss";
-import attachImg from "../../static/images/attach-icon.svg";
 import backImg from "../../static/images/next-icon.svg";
 import pictuteImg from "../../static/images/avatar-icon.svg";
 import pictuteEditImg from "../../static/images/avatar-edit.svg";
@@ -10,7 +9,18 @@ import Form from "../../components/Form/index";
 
 import Block from "../../modules/block/Block";
 
-class Profile extends Block {
+type ProfileProps = {
+  email: string;
+  firstName: string;
+  login: string;
+  secondName: string;
+  displayName: string;
+  phone: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+class Profile extends Block<ProfileProps> {
   constructor(props: any) {
     super("div", props);
   }
@@ -23,7 +33,7 @@ class Profile extends Block {
     });
 
     this.children.form = new Form({
-      formClass: this.props.formClass,
+      formClass: "form-profile",
       btnName: "Save",
       type: "submit",
       name: "save",
@@ -37,6 +47,9 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "kate@ya.ru",
           inputLabel: "Email",
+          validations:
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g,
+            value: ""
         },
         {
           inputContainerClass: "profile__item",
@@ -46,6 +59,8 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "kate",
           inputLabel: "Login",
+          validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
+          value: ""
         },
         {
           inputContainerClass: "profile__item",
@@ -55,6 +70,8 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "Kate",
           inputLabel: "Name",
+          validations: /[A-Za-zА-Яа-я]+$/,
+          value: ""
         },
         {
           inputContainerClass: "profile__item",
@@ -64,6 +81,8 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "Surname",
           inputLabel: "Surname",
+          validations: /[A-Za-zА-Яа-я]+$/,
+          value: ""
         },
         {
           inputContainerClass: "profile__item",
@@ -73,6 +92,8 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "Kate",
           inputLabel: "Name in chat",
+          validations: /[A-Za-zА-Яа-я]+$/,
+          value: ""
         },
         {
           inputContainerClass: "profile__item",
@@ -82,12 +103,14 @@ class Profile extends Block {
           inputType: "text",
           inputPlaceholder: "+7 (909) 967 30 30",
           inputLabel: "Telephone",
+          validations: /^\+?\d{10,15}$/,
+          value: ""
         },
       ],
     });
 
     this.children.passwordForm = new Form({
-      formClass: this.props.passwordFormClass,
+      formClass: "form-password",
       btnName: "Save",
       type: "submit",
       name: "save",
@@ -101,7 +124,8 @@ class Profile extends Block {
           inputType: "password",
           inputPlaceholder: " ",
           inputLabel: "Old password",
-          value: 'password'
+          value: "password",
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
         {
           inputContainerClass: "profile__item",
@@ -111,7 +135,7 @@ class Profile extends Block {
           inputType: "password",
           inputPlaceholder: "",
           inputLabel: "New password",
-          
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
         {
           inputContainerClass: "profile__item",
@@ -121,6 +145,7 @@ class Profile extends Block {
           inputType: "password",
           inputPlaceholder: " ",
           inputLabel: "Confirm password",
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
       ],
     });
@@ -128,9 +153,9 @@ class Profile extends Block {
     return this.compile(blockTemplate, {
       modal: this.children.modal,
       inputImg: this.children.inputImg,
-      backImg: this.props.backImg,
-      pictuteImg: this.props.pictuteImg,
-      pictuteEditImg: this.props.pictuteEditImg,
+      backImg: backImg,
+      pictuteImg: pictuteImg,
+      pictuteEditImg: pictuteEditImg,
       email: this.props.email,
       firstName: this.props.firstName,
       login: this.props.login,
@@ -144,10 +169,6 @@ class Profile extends Block {
   }
 }
 export const profile = new Profile({
-  attachImg: attachImg,
-  backImg: backImg,
-  pictuteImg: pictuteImg,
-  pictuteEditImg: pictuteEditImg,
   email: "kate@ya.ru",
   firstName: "Kate",
   login: "kate",
@@ -157,5 +178,5 @@ export const profile = new Profile({
   oldPassword: "password",
   newPassword: "",
   confirmPassword: "",
-  passwordFormClass: "profile__list profile__password-form"
+  passwordFormClass: "profile__list profile__password-form",
 });

@@ -2,8 +2,9 @@ import { blockTemplate } from "./error.tmpl";
 import "./error.scss";
 import Block from "../../modules/block/Block";
 
-class Error extends Block {
-  constructor(props: any) {
+type ErrorProps = {}
+class Error extends Block <ErrorProps> {
+  constructor(props: ErrorProps) {
     super("div", props);
   }
 

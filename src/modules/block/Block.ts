@@ -2,8 +2,7 @@ import EventBus from "../eventBus/EventBus";
 import { Templator } from "../../../utils/templator/Templator";
 import { v4 as makeUUID } from "uuid";
 
-// Нельзя создавать экземпляр данного класса
-class Block {
+abstract class Block<Props extends {}> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -11,15 +10,18 @@ class Block {
     FLOW_CDU: "flow:component-did-update",
   };
 
-  _element: any | null = null;
-  _meta: unknown | null = null;
-  props;
+  private _element: HTMLElement;
+  private _meta: {
+    tagName: string;
+    props: Props;
+  } | null = null;
+  protected props: Props;
   eventBus;
   children;
-  _id = null;
+  private _id: string;
   tagName: string;
 
-  constructor(tagName: string = "div", propsAndChildren = {}) {
+  constructor(tagName: string = "div", propsAndChildren: Props) {
     const { children, props }: { [key: string]: any } =
       this._getChildren(propsAndChildren);
 
@@ -55,23 +57,17 @@ class Block {
     return { children, props };
   }
 
-  public getContent(): Record<string, any> {
-    return this.element;
-  }
-
   public compile(template: string, props: any) {
-    const propsAndStubs = { ...props };
-
+    const propsAndChildren = { ...props };
 
     Object.entries(this.children).forEach(([key, child]: Array<any>) => {
-      if (Object.prototype.toString.call(child) === "[object Array]") {
-        propsAndStubs[key] = [];
-        child.forEach((element, index) => {
-          propsAndStubs[key].push(`<div data-id="${element._id}"></div>`);
+      if (Array.isArray(child)) {
+        propsAndChildren[key] = [];
+        child.forEach((element) => {
+          propsAndChildren[key].push(`<div data-id="${element._id}"></div>`);
         });
       } else {
-        // child._id = makeUUID();
-        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+        propsAndChildren[key] = `<div data-id="${child._id}"></div>`;
       }
     });
 
@@ -79,24 +75,20 @@ class Block {
 
     const tmpl: Templator = new Templator(template);
 
-    let hh = tmpl.compile(propsAndStubs);
-
-      fragment.innerHTML = tmpl.compile(propsAndStubs);
+    fragment.innerHTML = tmpl.compile(propsAndChildren);
 
     Object.values(this.children).forEach((child: any) => {
-      if (Object.prototype.toString.call(child) === "[object Array]") {
+      if (Array.isArray(child)) {
         child.forEach((element) => {
-
           const stub = fragment.content.querySelector(
             `[data-id="${element._id}"]`
           );
-
-          stub.replaceWith(element.getContent());
+          stub.replaceWith(element.element);
         });
       } else {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
-        stub.replaceWith(child.getContent());
+        stub.replaceWith(child.element);
       }
     });
 
@@ -125,8 +117,8 @@ class Block {
     this.componentDidMount();
 
     Object.values(this.children).forEach((child: any) => {
-      if (Object.prototype.toString.call(child) === "[object Array]") {
-        child.forEach((element, index) => {
+      if (Array.isArray(child)) {
+        child.forEach((element: any) => {
           element.dispatchComponentDidMount();
         });
       } else {
@@ -213,11 +205,11 @@ class Block {
   }
 
   public show() {
-    this.getContent().style.display = "block";
+    this.element.style.display = "block";
   }
 
   public hide() {
-    this.getContent().style.display = "none";
+    this.element.style.display = "none";
   }
 }
 

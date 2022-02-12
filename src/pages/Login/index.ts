@@ -3,14 +3,15 @@ import Block from "../../modules/block/Block";
 import Form from "../../components/Form/index";
 import "./login.scss";
 
-class Login extends Block {
+type LoginProps = {};
+class Login extends Block<LoginProps> {
   constructor(props: any) {
     super("div", props);
   }
 
   render() {
     this.children.form = new Form({
-      formClass: this.props.formClass,
+      formClass: "login-form",
       btnName: "Sign in",
       type: "submit",
       name: "sign-in",
@@ -24,6 +25,7 @@ class Login extends Block {
           inputType: "text",
           inputPlaceholder: " ",
           inputLabel: "Login",
+          validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
         },
         {
           inputContainerClass: "auth-form__input",
@@ -33,12 +35,11 @@ class Login extends Block {
           inputType: "password",
           inputPlaceholder: " ",
           inputLabel: "Password",
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
       ],
     });
     return this.compile(blockTemplate, { form: this.children.form });
   }
 }
-export const login = new Login({
-  formClass: "login-form",
-});
+export const login = new Login({});
