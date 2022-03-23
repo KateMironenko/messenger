@@ -14,14 +14,14 @@
 
 ### Messenger web-application with features:
 
--- create account
--- login
--- create chat and send messages
--- add members to chat
--- search messenges
--- edit profile info
--- forms validation
--- TypeScript
+* TypeScript
+* create account
+* login
+* create chat and send messages
+* add members to chat
+* search messenges
+* edit profile info
+* forms validation
 
 ### Project setup
 
