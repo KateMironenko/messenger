@@ -17,7 +17,7 @@
     border: none;
     padding: 0;
   }
-  
+
   &__input-label {
     position: absolute;
     pointer-events: none;
@@ -75,29 +75,7 @@
     }
   }
 
-  &__btn-submit {
-    width: 100%;
-    max-width: 280px;
-    height: 37px;
-    background: #ef9714;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 13px;
-    font-family: Roboto;
-    line-height: 13px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    color: #ffffff;
-    border: none;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease-in;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
-  }
+  
 
   &__link {
     margin: 14px auto 0;
