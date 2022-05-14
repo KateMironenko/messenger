@@ -8,7 +8,6 @@ $main-color: #ef9714;
     top: 0;
     left: 0;
     display: none;
-    // display: flex;
     width: 100vw;
     height: 100vh;
     z-index: 1000;
@@ -25,6 +24,7 @@ $main-color: #ef9714;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
     border-radius: 12px;
     padding: 40px 30px;
+    position: relative;
   }
 
   &__header {
@@ -34,6 +34,19 @@ $main-color: #ef9714;
     text-align: center;
     color: #1e1e1e;
     margin: 0 auto 50px;
+  }
+
+  &__close-btn{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 20px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    outline: none;
+    height: 20px;
+    border: none;
   }
 
   &__submit-btn {
@@ -59,4 +72,8 @@ $main-color: #ef9714;
       transform: translateY(-3px);
     }
   }
+}
+
+.modal-show{
+  display: flex;
 }

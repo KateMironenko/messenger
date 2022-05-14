@@ -18,8 +18,8 @@ export class Templator {
     if (key.length > 0) {
       key.forEach((val) => {
         if (val[1]) {
-          const tmplValue: string = val[1].trim();
-          const data: any = getObject(ctx, tmplValue, {});
+          const tmplValue: any = val[1].trim();
+          const data: any = getObject(ctx, tmplValue, '');
           if (Array.isArray(data)) {
             let element = "";
 
@@ -27,7 +27,17 @@ export class Templator {
               element += data[index];
             }
             tmpl = tmpl.replace(new RegExp(val[0], "gi"), element);
+            
+
           } else {
+            if (typeof data === "function") {
+              
+              window[tmplValue] = data;
+              tmpl = tmpl.replace(
+                new RegExp(val[0], "gi"),
+                    `window.${val[1].trim()}()`
+                  );
+            }
               tmpl = tmpl.replace(new RegExp(val[0], "gi"), data);
           }
         }

@@ -9,6 +9,34 @@ export default class UploadInput extends Block<UploadInputProps> {
     super("div", props);
     this.setProps({
       attachImg: attachImg,
+      events: {
+        focusout: (event: Event) => {
+          this._onFocus(event);
+        },
+        blur: (event: Event) => {
+          this._onBlur(event);
+        },
+      },
+    });
+  }
+
+  _onFocus(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    const { value }: { value: string } = input;
+
+    this.setProps({
+      value: value,
+    });
+  }
+
+  _onBlur(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    const { value }: { value: string } = input;
+
+    this.setProps({
+      value: value,
     });
   }
 

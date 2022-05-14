@@ -13,6 +13,7 @@ type InputProps = {
   validations: RegExp;
   valid: boolean;
   value: string;
+  inputDisabled?: string;
 };
 export default class Input extends Block<InputProps> {
   constructor(props: InputProps) {
@@ -29,6 +30,7 @@ export default class Input extends Block<InputProps> {
       },
     });
   }
+
 
   _onFocus(event: Event): void {
     const input = event.target as HTMLInputElement;

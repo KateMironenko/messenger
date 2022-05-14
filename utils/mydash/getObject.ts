@@ -1,4 +1,6 @@
-export function getObject(obj: unknown, path: string, defaultValue: unknown): unknown {
+import {isEmpty} from "./isEmpty"
+
+export function getObject(obj: unknown, path: string, defaultValue: unknown): unknown { 
     const keys = path.split('.');
 
     let result: any = obj;
@@ -7,6 +9,10 @@ export function getObject(obj: unknown, path: string, defaultValue: unknown): un
 
         if (result === undefined) {
             return defaultValue;        
+        }
+
+        if(isEmpty(result) && typeof result != "function"){
+            return defaultValue;
         }
     } 
 

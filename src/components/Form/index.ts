@@ -14,21 +14,26 @@ type FormProps = {
     inputPlaceholder: string;
     inputLabel: string;
     value?: string;
+    valid?: Boolean;
     validations: RegExp;
+    inputDisabled?: string;
   }[];
   btnName: string;
   className: string;
   type: string;
   name: string;
   formClass: string;
+  onSubmit: Function;
 };
 export default class Form extends Block<FormProps> {
   formSubmitData: {
     [key: string]: string;
   };
+  _onSubmit: Function;
   constructor(props: FormProps) {
     super("div", props);
     this.formSubmitData = {};
+    this._onSubmit = this.props.onSubmit;
   }
 
   render() {
@@ -42,8 +47,9 @@ export default class Form extends Block<FormProps> {
         inputPlaceholder: inputProps.inputPlaceholder,
         inputLabel: inputProps.inputLabel,
         validations: inputProps.validations,
-        valid: false,
-        value: ""
+        valid: inputProps.value ? true : false,
+        value: inputProps.value,
+        inputDisabled: inputProps.inputDisabled,
       });
       return input;
     });
@@ -51,6 +57,7 @@ export default class Form extends Block<FormProps> {
     this.children.button = new Button({
       className: this.props.className,
       btnName: this.props.btnName,
+      type: this.props.type,
       events: {
         click: (event: Event) => {
           event.preventDefault();
@@ -72,9 +79,20 @@ export default class Form extends Block<FormProps> {
       })
     ) {
       this.children.inputs.forEach((element: any) => {
-        this.formSubmitData[element.props.inputName] = element.props.value;
+        this.formSubmitData[element.props.inputName] =
+          element.props.value.replace(
+            /[&<>'"]/g,
+            (tag: string) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                "'": "&#39;",
+                '"': "&quot;",
+              }[tag] || tag)
+          );
       });
-      console.log(this.formSubmitData);
+      this._onSubmit(this.formSubmitData);
     }
   }
 }

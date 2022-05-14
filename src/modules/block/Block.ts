@@ -87,11 +87,9 @@ abstract class Block<Props extends {}> {
         });
       } else {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-
         stub.replaceWith(child.element);
       }
     });
-
     return fragment.content;
   }
 
@@ -103,9 +101,9 @@ abstract class Block<Props extends {}> {
   }
 
   private _createResources() {
-    const { tagName } = this._meta;
+    const { tagName }: any = this._meta;
     this._element = this._createDocumentElement(tagName);
-    this._element.setAttribute("data-id", this._id);
+    this._element?.setAttribute("data-id", this._id);
   }
 
   public init() {
@@ -140,6 +138,10 @@ abstract class Block<Props extends {}> {
 
   public componentDidUpdate() {}
 
+  public getId() {
+    return this._id;
+  }
+
   public setProps = (nextProps: unknown) => {
     if (!nextProps) {
       return;
@@ -162,19 +164,17 @@ abstract class Block<Props extends {}> {
     this._addEvents();
   }
 
-  public render() {}
+  public render(): any {}
 
   private _addEvents(): void {
-    const { events = {} } = this.props;
-
+    const { events = {} }: any = this.props;
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _removeEvents(): void {
-    const { events = {} } = this.props;
-
+    const { events = {} }: any = this.props;
     Object.keys(events).forEach((eventName) => {
       this._element.removeEventListener(eventName, events[eventName]);
     });
@@ -199,8 +199,7 @@ abstract class Block<Props extends {}> {
     });
   }
 
-  private _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private _createDocumentElement(tagName: string): any {
     return document.createElement(tagName);
   }
 

@@ -22,7 +22,7 @@ public  off(event: string, callback: Function): void {
   );
 }
 
-public  emit(event: string, ...args: []): void {
+public  emit(event: string, ...args: any): void {
       if (!this.listeners[event]) {
               throw new Event(`Нет события: ${event}`);
       }

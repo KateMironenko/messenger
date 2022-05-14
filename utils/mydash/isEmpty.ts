@@ -38,7 +38,7 @@ function isLength(value: unknown): boolean {
     return isObjectLike(value) && getTag(value) === "[object Arguments]";
   }
    
-  function isEmpty(value: any): boolean{
+  export function isEmpty(value: any): boolean{
     if (value === null) {
       return true;
     }

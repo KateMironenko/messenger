@@ -50,6 +50,7 @@ $main-color: #ef9714;
       background: rgba(0, 0, 0, 0.5);
       .profile__avatar-icon {
         display: none;
+        width: 100%;
 
         &_edit {
           display: block;
@@ -59,6 +60,7 @@ $main-color: #ef9714;
   }
 
   &__avatar-icon {
+    width: 100%;
     &_edit {
       display: none;
     }
@@ -83,6 +85,7 @@ $main-color: #ef9714;
     line-height: 13px;
     color: #999999;
     height: 16px;
+    background: none;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -211,6 +214,4 @@ $main-color: #ef9714;
     }
   }
 }
-.form-password{
-  display: none;
-}
+

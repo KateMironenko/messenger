@@ -4,7 +4,7 @@ export const blockTemplate: string = `
 
   <h2 class="error__text">{{ errorText }}</h2>
 
-  <a href="#/chat" class="error__link"> Back to chats </a>
+  <a href="/messenger" class="error__link"> Back to chats </a>
 </div>
 
   `;

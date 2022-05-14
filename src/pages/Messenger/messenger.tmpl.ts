@@ -2,54 +2,46 @@ export const blockTemplate: string = `
 <div class="chat" id="chat">
     <div class="chat__messages-container">
     <div class="chat__header-fixed">
-      <a href="#/profile" class="chat__profile-button">Profile
+    <div class="chat__header-buttons">
+    <button onclick="{{openAddChatModal}}" class="chat__header-button">
+            <img src="{{ addImg }}" />
+            Add chat
+          </button>
+      <a href="/settings" class="chat__profile-button">Profile
       <img class="chat__button-img" src="{{ arrowImg }}" />
       </a>
+      </div>
       <div class="chat__search-container">
           <input placeholder="Search" id="search-input" name="search-input" style="background-image: url({{ loupeImg }})" class="chat__search-field">
       </div>
     </div> 
+
+    {{modal}}
     
-    <div class="modal modal__container">
-    <div class="modal__box">
-    <h2 class="modal__header">{{ modalHeader }}</h2>
-    {{form}}   
-    </div>
-  </div>
+    {{modalAddUser}}
+
+    {{modalRemoveUser}}
   
-      <button class="chat__message message">
-        <div class="message__avatar"></div>
-        <div class="message__info">
-          <div class="message__name-container">
-            <h2 class="message__name">Kate</h2>
-            <p class="message__time">15:12</p>
-          </div>
-          <div class="message__text-container">
-            <p class="message__text"><span class="message__text-you">You: </span>cdvcdvcdv</p>
-            <div class="message__number">3</div>
-          </div>
-        </div>
-    </button>
+     {{chats}}
     </div>
   
     <div class="chat__main-container main-message">
-    <p class="chat__select-message">Select chat to send a message</p>
-  
+    <div class="chat__main-container_body">  
     <div class="main-message__header">
       <div class="main-message__avatar-container">
         <div class="main-message__avatar message__avatar"></div>
-        <h1 class="main-message__name">Kate</h1>
+        <h1 class="main-message__name">{{chatName}}</h1>
       </div>
       <button class="main-message__more-button">
         <img src="{{ optionImg }}" />
       </button>
       <nav class="modal-message modal-message_options">
-          <button class="option__button">
+          <button onclick="{{openAddUserModal}}" class="option__button">
             <img src="{{ addImg }}" />
             Add user
           </button>
   
-          <button class="option__button">
+          <button onclick="{{openRemoveUserModal}}" class="option__button">
             <img src="{{ removeImg }}" />
             Remove user
           </button>
@@ -147,6 +139,9 @@ export const blockTemplate: string = `
       </form>
     </div>
   </div>
-  
+  <div class="chat__main-container_select">
+  <p class="chat__select-message">Select chat to send a message</p>
+  </div>
+  </div>
   </div>
   `;
