@@ -4,7 +4,7 @@
 
 ### PR link
 
-[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/3)
+[PR link](https://github.com/KateMironenko/middle.messenger.praktikum.yandex/pull/4)
 
 ### Design:
 [Design link](https://www.figma.com/file/Iht6sS3niCa1KQ9bduKLdB/Messenger?node-id=0%3A1)
