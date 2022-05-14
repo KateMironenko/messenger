@@ -10,8 +10,8 @@ import Router from "./utils/router/router";
 const router = new Router("#root");
 
 router
-  .use("/signup", signup)
   .use("/", login)
+  .use("/signup", signup)
   .use("/settings", new Profile({}))
   .use("/messenger", new Messenger({}))
   .use("/error", error)

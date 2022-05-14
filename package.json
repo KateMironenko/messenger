@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "parcel index.html --port 3000",
-    "start": "npm run build && ts-node server.js",
+    "start": "npm run build && node server.js",
     "build": "parcel build index.html",
     "test": "mocha --require jsdom-global/register -r ignore-styles"
   },

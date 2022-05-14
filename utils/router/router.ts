@@ -11,9 +11,7 @@ class Router {
     }
     Router.__instance = this;
     this.routes = [];
-    if (typeof window !== "undefined") {
-      this.history = window.history;
-    }
+    this.history = window.history;
     this._currentRoute = null;
     this._rootQuery = rootQuery;
   }
