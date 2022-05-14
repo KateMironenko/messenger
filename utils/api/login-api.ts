@@ -7,8 +7,10 @@ const authAPIInstance = new HTTP(
 
 class LoginAPI extends BaseAPI {
   async request(user: { login: string; password: string }) {
-    return authAPIInstance.post("", {data: JSON.stringify(user)}).then(({ user_id }: any) => user_id);
+    return authAPIInstance
+      .post("", { data: JSON.stringify(user) })
+      .then(({ user_id }: any) => user_id);
   }
 }
 
-export default LoginAPI
+export default LoginAPI;

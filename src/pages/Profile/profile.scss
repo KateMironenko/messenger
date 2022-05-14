@@ -92,11 +92,11 @@ $main-color: #ef9714;
     border: none;
     text-align: right;
 
-    &:focus-visible{
+    &:focus-visible {
       outline: none;
     }
 
-    &.invalid-input{
+    &.invalid-input {
       color: red;
     }
 
@@ -214,4 +214,3 @@ $main-color: #ef9714;
     }
   }
 }
-

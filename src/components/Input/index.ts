@@ -1,4 +1,3 @@
-import "./input.scss";
 import Block from "../../modules/block/Block";
 import { blockTemplate } from "./input.tmpl";
 
@@ -30,7 +29,6 @@ export default class Input extends Block<InputProps> {
       },
     });
   }
-
 
   _onFocus(event: Event): void {
     const input = event.target as HTMLInputElement;

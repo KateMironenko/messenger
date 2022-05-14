@@ -7,11 +7,16 @@ const userInfoAPIInstance = new HTTP(
 
 class UserAvatarAPI extends BaseAPI {
   async update(data: FormData) {
-    return userInfoAPIInstance.put("", {headers:{
-        credentials: 'include', // Нам нужно подставлять cookies
-        mode: 'cors', 
-    } ,data: data}).then((response: any)=>JSON.parse(response.responseText));
+    return userInfoAPIInstance
+      .put("", {
+        headers: {
+          credentials: "include", // Нам нужно подставлять cookies
+          mode: "cors",
+        },
+        data: data,
+      })
+      .then((response: any) => JSON.parse(response.responseText));
   }
 }
 
-export default UserAvatarAPI
+export default UserAvatarAPI;

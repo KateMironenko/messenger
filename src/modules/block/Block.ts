@@ -2,7 +2,7 @@ import EventBus from "../eventBus/EventBus";
 import { Templator } from "../../../utils/templator/Templator";
 import { v4 as makeUUID } from "uuid";
 
-abstract class Block<Props extends {}> {
+abstract class Block<Props extends {} = {}> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -15,13 +15,13 @@ abstract class Block<Props extends {}> {
     tagName: string;
     props: Props;
   } | null = null;
-  protected props: Props;
+ props: Props;
   eventBus;
   children;
   private _id: string;
   tagName: string;
 
-  constructor(tagName: string = "div", propsAndChildren: Props) {
+  constructor(tagName: string = "div", propsAndChildren: Props ) {
     const { children, props }: { [key: string]: any } =
       this._getChildren(propsAndChildren);
 

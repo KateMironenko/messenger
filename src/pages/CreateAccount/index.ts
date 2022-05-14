@@ -4,7 +4,6 @@ import Form from "../../components/Form/index";
 import "./createAccount.scss";
 import UserSignUpController from "../../../utils/controllers/user-signup";
 
-type CreateAccountProps = {};
 
 const userApi = new UserSignUpController();
 
@@ -18,8 +17,8 @@ function onSignUp(data: {
 }): void {
   userApi.login(data);
 }
-class CreateAccount extends Block<CreateAccountProps> {
-  constructor(props: CreateAccountProps) {
+class CreateAccount extends Block {
+  constructor(props: {}) {
     super("div", props);
   }
 
@@ -38,7 +37,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "email-input",
           inputName: "email",
           inputType: "text",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "E-mail",
           validations:
@@ -50,7 +49,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "login-input",
           inputName: "login",
           inputType: "text",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "Login",
           validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
@@ -61,7 +60,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "name-input",
           inputName: "first_name",
           inputType: "text",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "Name",
           validations: /[A-Za-zА-Яа-я]+$/,
@@ -72,7 +71,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "surname-input",
           inputName: "second_name",
           inputType: "text",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "Surname",
           validations: /[A-Za-zА-Яа-я]+$/,
@@ -83,7 +82,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "phone-input",
           inputName: "phone",
           inputType: "text",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "Phone number",
           validations: /^\+?\d{10,15}$/,
@@ -95,7 +94,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputName: "password",
           inputType: "password",
           inputPlaceholder: " ",
-          value: '',
+          value: "",
           inputLabel: "Password",
           validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
@@ -105,7 +104,7 @@ class CreateAccount extends Block<CreateAccountProps> {
           inputId: "second-password-input",
           inputName: "second_password",
           inputType: "password",
-          value: '',
+          value: "",
           inputPlaceholder: " ",
           inputLabel: "Confirm password",
           validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,

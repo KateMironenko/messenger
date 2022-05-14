@@ -80,7 +80,7 @@ class Profile extends Block<ProfileProps> {
       },
       onAvatarUpdate: (data: FormData) => {
         onUserAvatarChange(data);
-        this.children.modal.closeModal()
+        this.children.modal.closeModal();
       },
       changePassword: () => {
         this.children.form.hide();

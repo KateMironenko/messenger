@@ -19,7 +19,7 @@ function isArray(value: unknown): value is [] {
   return Array.isArray(value);
 }
 
-export function isEqual(lhs: PlainObject, rhs: PlainObject) {
+export function isEqual(lhs: [] | PlainObject, rhs: any | PlainObject) {
   if (lhs === null || lhs === undefined) {
     return false;
   }

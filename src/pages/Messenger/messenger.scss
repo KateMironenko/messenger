@@ -29,7 +29,7 @@ $main-color: #ef9714;
     border-bottom: 1px solid #eaeaea;
   }
 
-  &__header-button{
+  &__header-button {
     display: flex;
     max-width: 100px;
     width: 49%;
@@ -39,7 +39,7 @@ $main-color: #ef9714;
     border: none;
   }
 
-  &__header-buttons{
+  &__header-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,7 +110,6 @@ $main-color: #ef9714;
   &__main-container {
     width: calc(100% - 310px);
     padding: 0 20px;
-    
 
     @media screen and (max-width: 670px) {
       width: 100%;
@@ -119,7 +118,7 @@ $main-color: #ef9714;
     }
   }
 
-  &__main-container_body{
+  &__main-container_body {
     flex-direction: column;
     display: none;
     height: 100%;
@@ -148,7 +147,6 @@ $main-color: #ef9714;
     overflow: auto;
   }
 }
-
 
 .main-message {
   &__header {
@@ -228,7 +226,7 @@ $main-color: #ef9714;
     padding: 10px 20px;
     margin-right: 10px;
     width: 100%;
-    
+
     &:active,
     &:focus-visible {
       outline: none;
@@ -248,12 +246,11 @@ $main-color: #ef9714;
   background: #ffffff;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
   border-radius: 12px;
-  // display: none;
   overflow: hidden;
   z-index: 100;
   flex-direction: column;
 
-  ul{
+  ul {
     padding: 0;
     margin: 0;
     list-style-type: none;

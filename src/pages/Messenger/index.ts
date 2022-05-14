@@ -24,7 +24,6 @@ import Block from "../../modules/block/Block";
 import ChatController from "../../../utils/controllers/chat";
 import { connect } from "../../../utils/mydash/connect";
 import Modal from "../../components/Modal/index";
-import UserController from "../../../utils/controllers/user-info";
 import ChatTokenController from "../../../utils/controllers/chat-token";
 interface LoginFormModel {
   login: string;
@@ -47,7 +46,6 @@ type MessengerProps = {
 };
 
 const withChats = connect((state) => state.chats);
-connect((state) => state.user);
 
 function websocketConnection(userId: Number, chatId: Number, token: String) {
   const socket = new WebSocket(
@@ -78,7 +76,7 @@ function websocketConnection(userId: Number, chatId: Number, token: String) {
     console.log("Получены данные", event.data);
   });
 
-  socket.addEventListener("error", (event) => {
+  socket.addEventListener("error", (event: any) => {
     console.log("Ошибка", event.message);
   });
 }
@@ -115,12 +113,12 @@ class Messenger extends Block<MessengerProps> {
                   id: chatData.id,
                   chatName: chatData.name,
                 });
-                document.querySelector(
+                document.querySelector<HTMLElement>(
                   ".chat__main-container_body"
-                ).style.display = "flex";
-                document.querySelector(
+                )!.style.display = "flex";
+                document.querySelector<HTMLElement>(
                   ".chat__main-container_select"
-                ).style.display = "none";
+                )!.style.display = "none";
               },
             },
           });
@@ -160,13 +158,14 @@ class Messenger extends Block<MessengerProps> {
         formClass: "form-message",
         btnName: "Add",
         onSubmit: (data: LoginFormModel) => {
-          const userId = UserLoginController.findUser(data).id;
+          const user: any = UserLoginController.findUser(data);
+          const userId = user.id;
           let users: {
             users: Array<Number>;
             chatId: Number | undefined;
           } = {
             users: [],
-            chatId: undefined
+            chatId: undefined,
           };
           users.users = [userId];
           users.chatId = this.props.id;
@@ -198,13 +197,14 @@ class Messenger extends Block<MessengerProps> {
         formClass: "form-message",
         btnName: "Remove",
         onSubmit: (data: LoginFormModel) => {
-          const userId = UserLoginController.findUser(data).id;
+          const user: any = UserLoginController.findUser(data);
+          const userId = user.id;
           let users: {
             users: Array<Number>;
             chatId: Number | undefined;
           } = {
             users: [],
-            chatId: undefined
+            chatId: undefined,
           };
           users.users = [userId];
           users.chatId = this.props.id;

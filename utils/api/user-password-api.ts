@@ -11,8 +11,8 @@ interface UserFormModel {
 
 class UserPasswordAPI extends BaseAPI {
   async update(data: UserFormModel) {
-    return userInfoAPIInstance.put("", {data: JSON.stringify(data)});
+    return userInfoAPIInstance.put("", { data: JSON.stringify(data) });
   }
 }
 
-export default UserPasswordAPI
+export default UserPasswordAPI;

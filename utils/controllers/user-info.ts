@@ -17,14 +17,14 @@ interface UserPasswordModel {
   newPassword: string;
 }
 const userApi = new UserInfoAPI();
-const userAvatarAPI = new UserAvatarAPI()
-const userPasswordAPI = new UserPasswordAPI()
+const userAvatarAPI = new UserAvatarAPI();
+const userPasswordAPI = new UserPasswordAPI();
 
 class UserController {
   public async getUser() {
     try {
-     return userApi.request().then((data) => {
-        window.userID = data.id
+      return userApi.request().then((data) => {
+        window.userID = data.id;
         store.set("user", data);
       });
     } catch (error) {
@@ -53,7 +53,7 @@ class UserController {
 
   public async updatePassword(data: UserPasswordModel) {
     try {
-      userPasswordAPI.update(data)
+      userPasswordAPI.update(data);
     } catch (error) {
       console.log(error);
     }

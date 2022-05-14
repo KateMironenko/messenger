@@ -2,14 +2,11 @@ import { blockTemplate } from "./modal.tmpl";
 import "./modal.scss";
 import removeImg from "../../static/images/remove-icon.svg";
 import Block from "../../modules/block/Block";
-
-type ModalProps = {};
-export default class Modal extends Block<ModalProps> {
-  constructor(props: ModalProps) {
+export default class Modal extends Block{
+  constructor(props: {}) {
     super("div", props);
     this.setProps({
-      onCloseModal: () =>
-        this.closeModal()
+      onCloseModal: () => this.closeModal(),
     });
   }
 
@@ -20,10 +17,10 @@ export default class Modal extends Block<ModalProps> {
     });
   }
 
-  closeModal(){
+  closeModal() {
     this.setProps({
       showModal: "",
-    })
+    });
   }
 
   render() {

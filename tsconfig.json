@@ -22,6 +22,8 @@
         "esModuleInterop": true,
     },
     "include": [
-        "**/*.ts"
+        "**/*.ts",
+        "**/src/types/index.d.ts",
+        "**/src/index.d.ts"
     ],
 }

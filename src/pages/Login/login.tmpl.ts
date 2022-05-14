@@ -1,4 +1,4 @@
-export const blockTemplate : string = `
+export const blockTemplate: string = `
 <div class="auth">
   <div class="auth__left-block">
     <div class="login" id="login">

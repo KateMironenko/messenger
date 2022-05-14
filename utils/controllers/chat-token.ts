@@ -1,20 +1,19 @@
-import ChatTokenAPI from "../api/chat-token"
-import store from "../store/store";
+import ChatTokenAPI from "../api/chat-token";
 
 interface ChatTokenModel {
   chatId: string;
 }
 
-const chatTokenAPI = new ChatTokenAPI ();
+const chatTokenAPI = new ChatTokenAPI();
 
 class ChatTokenController {
   public async getToken(data: ChatTokenModel) {
     try {
-      return chatTokenAPI.create(data)
+      return chatTokenAPI.create(data);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   }
 }
 
-export default new ChatTokenController()
+export default new ChatTokenController();

@@ -5,13 +5,12 @@ import UserLoginController from "../../../utils/controllers/user-login";
 import "./login.scss";
 
 const userApi = new UserLoginController();
-type LoginProps = {};
 function onLogin(data: { login: string; password: string }): void {
   userApi.login(data);
 }
 
-class Login extends Block<LoginProps> {
-  constructor(props: any) {
+class Login extends Block{
+  constructor(props: {}) {
     super("div", props);
   }
 
@@ -32,7 +31,7 @@ class Login extends Block<LoginProps> {
           inputType: "text",
           inputPlaceholder: " ",
           inputLabel: "Login",
-          value: '',
+          value: "",
           validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
         },
         {
@@ -43,7 +42,7 @@ class Login extends Block<LoginProps> {
           inputType: "password",
           inputPlaceholder: " ",
           inputLabel: "Password",
-          value: '',
+          value: "",
           validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
       ],

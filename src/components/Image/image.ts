@@ -1,10 +1,8 @@
-import "./image.scss";
 import Block from "../../modules/block/Block";
 import { blockTemplate } from "./image.tmpl";
 
-type ImageProps = {};
- class Image extends Block<ImageProps> {
-  constructor(props: ImageProps) {
+class Image extends Block {
+  constructor(props: {}) {
     super("div", props);
   }
 
@@ -13,4 +11,4 @@ type ImageProps = {};
   }
 }
 
-export default new Image({})
+export default new Image({});

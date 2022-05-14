@@ -14,9 +14,7 @@ type FormProps = {
   inputId: string;
 };
 export default class Form extends Block<FormProps> {
-  formSubmitData: {
-    [key: string]: string;
-  };
+  formSubmitData: Record<string, string>;
   _onSubmit: Function;
   constructor(props: FormProps) {
     super("div", props);
@@ -50,12 +48,10 @@ export default class Form extends Block<FormProps> {
 
   _onSend(): void {
     const form = new FormData();
-    const input = document.getElementById(
-      this.props.inputId
-    ) as HTMLInputElement | null;
+    const input: any = document.getElementById(this.props.inputId);
 
     if (input != null) {
-      const avatar = input?.files[0];
+      const avatar = input!.files[0];
 
       if (avatar) {
         form.append("avatar", avatar);

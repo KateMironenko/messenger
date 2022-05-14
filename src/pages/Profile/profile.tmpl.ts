@@ -26,5 +26,4 @@ export const blockTemplate: string = `
     </div>
   </div>
 </div>
-
   `;

@@ -11,4 +11,4 @@ class LogoutAPI extends BaseAPI {
   }
 }
 
-export default LogoutAPI
+export default LogoutAPI;

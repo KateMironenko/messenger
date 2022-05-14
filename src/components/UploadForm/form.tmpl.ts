@@ -1,4 +1,4 @@
-export const blockTemplate : string = `
+export const blockTemplate: string = `
       <form class="{{formClass}}" novalidate>
       {{input}} 
         {{ button }}

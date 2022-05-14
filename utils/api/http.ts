@@ -1,4 +1,3 @@
-
 enum Methods {
   GET = "GET",
   POST = "POST",
@@ -7,7 +6,7 @@ enum Methods {
 }
 class HTTPT {
   public mainUrl: string;
-  constructor(mainUrl: string = '/') {
+  constructor(mainUrl: string = "/") {
     this.mainUrl = mainUrl;
   }
 
@@ -44,7 +43,11 @@ class HTTPT {
   };
 
   request = (url: string, options: any = {}, timeout = 5000) => {
-    const { headers = {'Content-Type': 'application/json'}, method, data } = options;
+    const {
+      headers = { "Content-Type": "application/json" },
+      method,
+      data,
+    } = options;
 
     return new Promise(function (resolve, reject) {
       if (!method) {
@@ -55,7 +58,6 @@ class HTTPT {
       const xhr = new XMLHttpRequest();
 
       xhr.open(method, url);
-
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -69,14 +71,12 @@ class HTTPT {
 
       xhr.onabort = reject;
       xhr.onerror = reject;
-      
 
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
       if (!data) {
         xhr.send();
-      }
-       else {
+      } else {
         xhr.send(data);
       }
     });

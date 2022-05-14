@@ -1,4 +1,3 @@
-import "./form.scss";
 import Block from "../../modules/block/Block";
 import { blockTemplate } from "./form.tmpl";
 import Button from "../../components/Button/index";
@@ -26,9 +25,7 @@ type FormProps = {
   onSubmit: Function;
 };
 export default class Form extends Block<FormProps> {
-  formSubmitData: {
-    [key: string]: string;
-  };
+  formSubmitData: Record<string, string>;
   _onSubmit: Function;
   constructor(props: FormProps) {
     super("div", props);
