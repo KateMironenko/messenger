@@ -237,7 +237,6 @@ class Messenger extends Block<MessengerProps> {
               };
               users.users.push(response[0].id);
               users.chatId = this.props.id;
-              console.log(users);
             })
             .then(() => {
               ChatController.addUserToChat(users).then(() => {
@@ -281,7 +280,6 @@ class Messenger extends Block<MessengerProps> {
               };
               users.users.push(response[0].id);
               users.chatId = this.props.id;
-              console.log(users);
             })
             .then(() => {
               ChatController.removeUserFromChat(users).then(() => {
