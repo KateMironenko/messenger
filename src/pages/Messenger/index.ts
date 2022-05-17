@@ -213,7 +213,7 @@ class Messenger extends Block<MessengerProps> {
             inputType: "text",
             inputPlaceholder: " ",
             inputLabel: "Chat title",
-            validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
+            validations: /(?!^\d+$)^[А-Яа-яA-Za-z0-9]{3,20}$/,
           },
         ],
       }),
