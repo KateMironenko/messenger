@@ -35,7 +35,6 @@ class ChatController {
   public async addUserToChat(data: ChatUserFormModel) {
     try {
       chatApi.update(data);
-      this.getChats();
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +43,6 @@ class ChatController {
   public async removeUserFromChat(data: ChatUserFormModel) {
     try {
       chatApi.delete(data);
-      this.getChats();
     } catch (error) {
       console.log(error);
     }

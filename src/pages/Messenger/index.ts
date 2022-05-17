@@ -225,20 +225,25 @@ class Messenger extends Block<MessengerProps> {
         formClass: "form-message",
         btnName: "Add",
         onSubmit: (data: LoginFormModel) => {
-          const user: any = UserLoginController.findUser(data);
-          const userId = user.id;
           let users: {
             users: Array<Number>;
             chatId: Number | undefined;
-          } = {
-            users: [],
-            chatId: undefined,
           };
-          users.users = [userId];
-          users.chatId = this.props.id;
-          if (userId) {
-            ChatController.addUserToChat(users);
-          }
+          UserLoginController.findUser(data)
+            .then((response: any) => {
+              users = {
+                users: [],
+                chatId: undefined,
+              };
+              users.users.push(response[0].id);
+              users.chatId = this.props.id;
+              console.log(users);
+            })
+            .then(() => {
+              ChatController.addUserToChat(users).then(() => {
+                this.children.modalAddUser.closeModal();
+              });
+            });
         },
         type: "submit",
         name: "add-user",
@@ -264,20 +269,25 @@ class Messenger extends Block<MessengerProps> {
         formClass: "form-message",
         btnName: "Remove",
         onSubmit: (data: LoginFormModel) => {
-          const user: any = UserLoginController.findUser(data);
-          const userId = user.id;
           let users: {
             users: Array<Number>;
             chatId: Number | undefined;
-          } = {
-            users: [],
-            chatId: undefined,
           };
-          users.users = [userId];
-          users.chatId = this.props.id;
-          if (userId) {
-            ChatController.removeUserFromChat(users);
-          }
+          UserLoginController.findUser(data)
+            .then((response: any) => {
+              users = {
+                users: [],
+                chatId: undefined,
+              };
+              users.users.push(response[0].id);
+              users.chatId = this.props.id;
+              console.log(users);
+            })
+            .then(() => {
+              ChatController.removeUserFromChat(users).then(() => {
+                this.children.modalRemoveUser.closeModal();
+              });
+            });
         },
         type: "submit",
         name: "remove-user",

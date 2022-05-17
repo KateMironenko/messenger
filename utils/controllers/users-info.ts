@@ -9,8 +9,7 @@ const usersApi = new UsersAPI();
 class UserLoginController {
   public async findUser(data: UsersFormModel) {
     try {
-      const user = usersApi.create(data);
-      return user;
+      return await usersApi.create(data);
     } catch (error) {
       console.log(error);
     }
