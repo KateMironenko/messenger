@@ -14,7 +14,7 @@ type FormProps = {
     inputLabel: string;
     value?: string;
     valid?: Boolean;
-    validations: RegExp;
+    validations?: RegExp;
     inputDisabled?: string;
   }[];
   btnName: string;

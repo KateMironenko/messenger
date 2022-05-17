@@ -1,6 +1,5 @@
 import store, { StoreEvents } from "../store/store";
 import Block from "../../src/modules/block/Block";
-import { isEqual } from "../mydash/isEqual";
 
 type Indexed = Record<string, any>;
 
@@ -14,11 +13,7 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
 
         store.on(StoreEvents.Updated, () => {
           const newState = mapStateToProps(store.getState());
-
-          if (!isEqual(state, newState)) {
-            this.setProps({ ...newState });
-          }
-
+          this.setProps({ ...newState });
           state = newState;
         });
       }

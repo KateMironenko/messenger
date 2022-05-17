@@ -32,7 +32,7 @@ export const blockTemplate: string = `
         <div class="main-message__avatar message__avatar"></div>
         <h1 class="main-message__name">{{chatName}}</h1>
       </div>
-      <button class="main-message__more-button">
+      <button onclick="{{openChatMenu}}" class="main-message__more-button">
         <img src="{{ optionImg }}" />
       </button>
       <nav class="modal-message modal-message_options">
@@ -53,63 +53,7 @@ export const blockTemplate: string = `
         </nav>
     </div>
   
-    <div class="chat__main-messages">
-      <p class="chat__main-date">19 september</p>
-      {{message}}
-  
-      <div class="chat__message-container message-main outcome-message outcome-message_clicked">
-        <p class="message-main__text">Круто!</p>
-        <div class="message-main__date">
-          <img class="message-main__read" src="{{ checkedImg }}" />
-          <img class="message-main__read-white" src="{{ checkedWhiteImg }}" />
-          11:56
-        </div>
-      </div>
-
-      <div class="chat__message-container message-main income-message">
-        <p class="message-main__text">
-          Привет! Смотри, тут всплыл интересный кусок лунной космической истории —
-          НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для
-          полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500
-          EL — и к слову говоря, все тушки этих камер все еще находятся на
-          поверхности Луны, так как астронавты с собой забрали только кассеты с
-          пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то
-          пошло не так и на ракету они так никогда и не попали. Всего их было
-          произведено 25 штук, одну из них недавно продали на аукционе за 45000
-          евро.
-        </p>
-        <div class="message-main__date">11:56</div>
-      </div>
-
-      <div class="chat__message-container message-main outcome-message">
-        <nav class="outcome-message__modal modal-message ">
-          <ul class="outcome-message__options">
-           <li>
-            <button class="outcome-message__option-bt">
-              <img src="{{ trashImg }}" />
-            </button>
-            </li>
-            <li>
-            <button class="outcome-message__option-bt">
-              <img src="{{ editImg }}" />
-            </button>
-            </li>
-            <li>
-            <button class="outcome-message__option-bt">
-              <img src="{{ copyImg }}" />
-            </button>
-            </li>
-          </ul>
-        </nav>
-        <p class="message-main__text">Круто!</p>
-        <div class="message-main__date">
-          <img class="message-main__read" src="{{ checkedImg }}" />
-          <img class="message-main__read-white" src="{{ checkedWhiteImg }}" />
-          11:56
-        </div>
-      </div>
-
-    </div>
+   {{messages}}
   
     <div class="main-message__bottom">
     <nav class="modal-message modal-message_attachments">
@@ -128,14 +72,12 @@ export const blockTemplate: string = `
             Location
           </button>
         </nav>
-      <button class="main-message__option-btn">
+      <button onclick="{{openAttachmentMenu}}" class="main-message__option-btn">
         <img src="{{ attachImg }}" />
       </button>
       <form name="send-message" class="main-message__form" novalidate>
-        <input name="message" placeholder="Message" id="message" class="main-message__input" />
-        <button type="submit" class="main-message__send-btn">
-          <img src="{{ nextImg }}" />
-        </button>
+      {{ messageInput}}
+        {{sendBtn}}
       </form>
     </div>
   </div>

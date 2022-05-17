@@ -25,7 +25,7 @@ class ChatController {
 
   public async addChat(data: ChatFormModel) {
     try {
-      chatApi.create(data);
+      await chatApi.create(data);
       this.getChats();
     } catch (error) {
       console.log(error);

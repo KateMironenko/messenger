@@ -11,4 +11,4 @@ class Image extends Block {
   }
 }
 
-export default new Image({});
+export default Image;

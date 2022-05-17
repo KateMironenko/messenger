@@ -5,8 +5,6 @@ import loupeImg from "../../static/images/loupe.svg";
 import optionImg from "../../static/images/option-icon.svg";
 import addImg from "../../static/images/add-icon.svg";
 import removeImg from "../../static/images/remove-icon.svg";
-import checkedImg from "../../static/images/checked-icon.svg";
-import checkedWhiteImg from "../../static/images/checked-icon-white.svg";
 import trashImg from "../../static/images/trash-icon.svg";
 import editImg from "../../static/images/edit-icon.svg";
 import copyImg from "../../static/images/copy-icon.svg";
@@ -16,7 +14,6 @@ import pictuteImg from "../../static/images/img-icon.svg";
 import fileImg from "../../static/images/file-icon.svg";
 import locationImg from "../../static/images/location-icon.svg";
 import Form from "../../components/Form/index";
-import Message from "../../components/Message/index";
 import avatarImg from "../../static/images/avatar-icon.svg";
 import Chat from "../../components/Chat/index";
 import UserLoginController from "../../../utils/controllers/users-info";
@@ -24,7 +21,13 @@ import Block from "../../modules/block/Block";
 import ChatController from "../../../utils/controllers/chat";
 import { connect } from "../../../utils/mydash/connect";
 import Modal from "../../components/Modal/index";
+import Button from "../../components/Button/index";
+import Image from "../../components/Image/index";
+import Input from "../../components/Input/index";
 import ChatTokenController from "../../../utils/controllers/chat-token";
+import WebSocketConnection from "../../../utils/webSocket/webSocket";
+import MessagesBlock from "../../components/MessagesBlock";
+
 interface LoginFormModel {
   login: string;
   password: string;
@@ -43,56 +46,48 @@ type MessengerProps = {
   chats: Array<object>;
   id: Number;
   openRemoveUserModal: Function;
+  onMessageSend: Function;
+  sendBtn: String;
+  messageInput: String;
+  openChatMenu: Function;
+  openAttachmentMenu: Function;
 };
 
 const withChats = connect((state) => state.chats);
 
-function websocketConnection(userId: Number, chatId: Number, token: String) {
-  const socket = new WebSocket(
-    `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`
-  );
-  socket.addEventListener("open", () => {
-    console.log("Соединение установлено");
-
-    socket.send(
-      JSON.stringify({
-        content: "Моё первое сообщение миру!",
-        type: "message",
-      })
-    );
-  });
-
-  socket.addEventListener("close", (event) => {
-    if (event.wasClean) {
-      console.log("Соединение закрыто чисто");
-    } else {
-      console.log("Обрыв соединения");
-    }
-
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-  });
-
-  socket.addEventListener("message", (event) => {
-    console.log("Получены данные", event.data);
-  });
-
-  socket.addEventListener("error", (event: any) => {
-    console.log("Ошибка", event.message);
-  });
+function showElement(id: string, isShow: boolean) {
+  isShow
+    ? (document.querySelector<HTMLElement>(id)!.style.display = "block")
+    : (document.querySelector<HTMLElement>(id)!.style.display = "none");
 }
 
 class Messenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
     super("div", props);
+
     this.setProps({
       openAddChatModal: () => this.children.modal.openModal(),
-      openAddUserModal: () => this.children.modalAddUser.openModal(),
-      openRemoveUserModal: () => this.children.modalRemoveUser.openModal(),
+      openAddUserModal: () => {
+        this.children.modalAddUser.openModal();
+        showElement(".modal-message_options", false);
+      },
+      openRemoveUserModal: () => {
+        this.children.modalRemoveUser.openModal();
+        showElement(".modal-message_options", false);
+      },
+      openChatMenu: () => {
+        showElement(".modal-message_options", true);
+      },
+      openAttachmentMenu: () => {
+        showElement(".modal-message_attachments", true);
+      },
     });
   }
 
   render() {
-    this.children.message = new Message({});
+    this.children.messages = new MessagesBlock({
+      messages: [],
+    });
     this.children.chats = this.props.chats
       ? this.props.chats.map((chatProps: any) => {
           const chat: Chat = new Chat({
@@ -105,20 +100,38 @@ class Messenger extends Block<MessengerProps> {
             events: {
               click: (event: Event) => {
                 event.preventDefault();
-                ChatTokenController.getToken(chatProps.id).then((data) => {
-                  websocketConnection(window.userID, chatProps.id, data.token);
-                });
-                let chatData = chat.props;
-                this.setProps({
-                  id: chatData.id,
-                  chatName: chatData.name,
-                });
-                document.querySelector<HTMLElement>(
-                  ".chat__main-container_body"
-                )!.style.display = "flex";
-                document.querySelector<HTMLElement>(
-                  ".chat__main-container_select"
-                )!.style.display = "none";
+                let token: string;
+
+                ChatTokenController.getToken(chatProps.id)
+                  .then((data) => {
+                    token = data.token;
+                    new WebSocketConnection(
+                      window.userID,
+                      chatProps.id,
+                      data.token
+                    );
+                  })
+                  .then(() => {
+                    new WebSocketConnection().getMessages();
+                    let that = this;
+                    setTimeout(() => {
+                      let chatData = chat.props;
+                      that.setProps({
+                        id: chatData.id,
+                        chatName: chatData.name,
+                        chatToken: token,
+                      });
+                      this.children.messages.setProps({
+                        messages: new WebSocketConnection().messages,
+                      });
+                      document.querySelector<HTMLElement>(
+                        ".chat__main-container_body"
+                      )!.style.display = "flex";
+                      document.querySelector<HTMLElement>(
+                        ".chat__main-container_select"
+                      )!.style.display = "none";
+                    }, 500);
+                  });
               },
             },
           });
@@ -126,13 +139,67 @@ class Messenger extends Block<MessengerProps> {
         })
       : [];
 
+    this.children.messageInput = new Input({
+      inputContainerClass: " ",
+      inputClass: "main-message__input",
+      inputId: " ",
+      inputName: "message",
+      inputType: "text",
+      inputPlaceholder: "Message",
+      inputLabel: " ",
+      valid: true,
+      value: " ",
+      inputDisabled: " ",
+    });
+
+    this.children.sendBtn = new Button({
+      className: "main-message__send-btn",
+      btnName: new Image({
+        className: "",
+        pictuteImg: nextImg,
+      }),
+      type: "submit",
+      events: {
+        click: (event: Event) => {
+          event.preventDefault();
+          const message: string =
+            this.children.messageInput.props.value.replace(
+              /[&<>'"]/g,
+              (tag: string) =>
+                ({
+                  "&": "&amp;",
+                  "<": "&lt;",
+                  ">": "&gt;",
+                  "'": "&#39;",
+                  '"': "&quot;",
+                }[tag] || tag)
+            );
+          new WebSocketConnection().send({
+            content: message,
+            type: "message",
+          });
+          new WebSocketConnection().getMessages();
+          setTimeout(() => {
+            this.children.messages.setProps({
+              messages: new WebSocketConnection().messages,
+            });
+          }, 500);
+
+          this.children.messageInput.setProps({
+            value: "",
+          });
+        },
+      },
+    });
+
     this.children.modal = new Modal({
       modalBody: new Form({
         formClass: "form-message",
         btnName: "Add",
         onSubmit: (data: ChatFormModel) => {
-          ChatController.addChat(data);
-          this.children.modal.closeModal();
+          ChatController.addChat(data).then(() => {
+            this.children.modal.closeModal();
+          });
         },
         type: "submit",
         name: "add-chat",
@@ -236,7 +303,8 @@ class Messenger extends Block<MessengerProps> {
       openAddChatModal: this.props.openAddChatModal,
       openAddUserModal: this.props.openAddUserModal,
       openRemoveUserModal: this.props.openRemoveUserModal,
-      message: this.children.message,
+      onMessageSend: this.props.onMessageSend,
+      messages: this.children.messages,
       chats: this.children.chats,
       arrowImg: arrowImg,
       modalHeader: "Add user",
@@ -244,8 +312,6 @@ class Messenger extends Block<MessengerProps> {
       optionImg: optionImg,
       addImg: addImg,
       removeImg: removeImg,
-      checkedImg: checkedImg,
-      checkedWhiteImg: checkedWhiteImg,
       trashImg: trashImg,
       editImg: editImg,
       copyImg: copyImg,
@@ -257,6 +323,10 @@ class Messenger extends Block<MessengerProps> {
       chatName: this.props.chatName,
       modalAddUser: this.children.modalAddUser,
       modalRemoveUser: this.children.modalRemoveUser,
+      sendBtn: this.props.sendBtn,
+      messageInput: this.props.messageInput,
+      openChatMenu: this.props.openChatMenu,
+      openAttachmentMenu: this.props.openAttachmentMenu,
     });
   }
 }

@@ -54,7 +54,7 @@ $main-color: #ef9714;
     padding: 0;
     height: 37px;
     border-radius: 8px;
-    background-color: $main-color;
+    background-color: $main-color !important;
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
