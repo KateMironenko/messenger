@@ -11,7 +11,4 @@ class Error extends Block {
     return this.compile(blockTemplate, this.props);
   }
 }
-export const error = new Error({
-  errorCode: '404',
-  errorText: 'Page not found'
-});
+export default Error;

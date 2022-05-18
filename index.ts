@@ -2,7 +2,7 @@ import {login} from './src/pages/Login/index';
 import {signup} from './src/pages/CreateAccount/index';
 import Messenger from './src/pages/Messenger/index';
 import Profile from './src/pages/Profile/index';
-import {error} from './src/pages/Error/index';
+import Error from './src/pages/Error/index';
 import './src/static/fonts/stylesheet.css';
 import './src/static/styles/auth-form.scss';
 import Router from './utils/router/router';
@@ -14,5 +14,18 @@ router
   .use('/signup', signup)
   .use('/settings', new Profile({}))
   .use('/messenger', new Messenger({}))
-  .use('/error', error)
+  .use(
+    '/404',
+    new Error({
+      errorCode: '404',
+      errorText: 'Page not found'
+    })
+  )
+  .use(
+    '/500',
+    new Error({
+      errorCode: '500',
+      errorText: 'Server error'
+    })
+  )
   .start();

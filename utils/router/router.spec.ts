@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {error} from '../../src/pages/Error/index';
+import Error from '../../src/pages/Error/index';
 import Router from './router';
 
 const {JSDOM} = require('jsdom');
@@ -25,8 +25,8 @@ describe('Check Router', () => {
   });
 
   beforeEach(() => {
-    router.use('/login', error);
-    router.use('/error', error).start();
+    router.use('/login', new Error({}));
+    router.use('/404', new Error({})).start();
   });
 
   it('Check if router added', () => {
@@ -34,11 +34,11 @@ describe('Check Router', () => {
   });
 
   it('Check go to correct page', () => {
-    router.go('/error');
-    expect(window.location.href).to.eq('http://localhost:3000/error');
+    router.go('/404');
+    expect(window.location.href).to.eq('http://localhost:3000/404');
   });
 
   it('Check return seleted router', () => {
-    expect(router.getRoute('/error')?._pathname).to.eq('/error');
+    expect(router.getRoute('/404')?._pathname).to.eq('/404');
   });
 });
