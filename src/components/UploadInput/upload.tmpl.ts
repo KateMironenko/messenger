@@ -3,7 +3,7 @@ export const blockTemplate: string = `
       <label for="avatar" class="file-form__input-lable">
       <img src="{{ attachImg }}" /> Select image
         </label>
-      <input class="file-form__item form__item_el_file" id="avatar" name="avatar" type="file"  required minlength="2" maxlength="40">
+      <input class="file-form__item form__item_el_file" id="{{inputId}}" name="{{inputName}}" type="file" accept="image/*"  required >
       <span id="file-input-error" class="form__item-error"></span>
         </div> 
   `;

@@ -1,10 +1,8 @@
-import "./message.scss";
 import Block from "../../modules/block/Block";
 import { blockTemplate } from "./message.tmpl";
 
-type MessageProps = {};
-export default class Message extends Block<MessageProps> {
-  constructor(props: MessageProps) {
+export default class Message extends Block {
+  constructor(props: {}) {
     super("div", props);
   }
 

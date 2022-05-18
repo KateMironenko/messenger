@@ -1,11 +1,16 @@
 import { blockTemplate } from "./login.tmpl";
 import Block from "../../modules/block/Block";
 import Form from "../../components/Form/index";
+import UserLoginController from "../../../utils/controllers/user-login";
 import "./login.scss";
 
-type LoginProps = {};
-class Login extends Block<LoginProps> {
-  constructor(props: any) {
+const userApi = new UserLoginController();
+function onLogin(data: { login: string; password: string }): void {
+  userApi.login(data);
+}
+
+class Login extends Block{
+  constructor(props: {}) {
     super("div", props);
   }
 
@@ -16,6 +21,7 @@ class Login extends Block<LoginProps> {
       type: "submit",
       name: "sign-in",
       className: "auth-form__btn-submit",
+      onSubmit: onLogin,
       inputs: [
         {
           inputContainerClass: "auth-form__input",
@@ -25,6 +31,7 @@ class Login extends Block<LoginProps> {
           inputType: "text",
           inputPlaceholder: " ",
           inputLabel: "Login",
+          value: "",
           validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
         },
         {
@@ -35,10 +42,12 @@ class Login extends Block<LoginProps> {
           inputType: "password",
           inputPlaceholder: " ",
           inputLabel: "Password",
+          value: "",
           validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
       ],
     });
+
     return this.compile(blockTemplate, { form: this.children.form });
   }
 }

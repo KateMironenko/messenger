@@ -1,3 +1,28 @@
 [build]
 command = "npm run build"
 publish = "dist" 
+
+[[redirects]]
+  from = "/error"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/messenger"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/settings"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/signup"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200

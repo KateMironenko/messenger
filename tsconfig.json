@@ -8,6 +8,22 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "sourceMap": true,
-        "strictNullChecks": true
-    }
+        "strictNullChecks": true,
+        "types": [
+            "ts-node",
+            "mocha",
+            "chai"
+        ],
+        "typeRoots": [
+            "typings"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "allowUmdGlobalAccess": true,
+        "esModuleInterop": true,
+    },
+    "include": [
+        "**/*.ts",
+        "**/src/types/index.d.ts",
+        "**/src/index.d.ts"
+    ],
 }

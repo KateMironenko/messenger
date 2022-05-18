@@ -1,14 +1,24 @@
-export function getObject(obj: unknown, path: string, defaultValue: unknown): unknown {
-    const keys = path.split('.');
+import { isEmpty } from "./isEmpty";
 
-    let result: any = obj;
-    for (let key of keys) {
-        result = result[key];
+export function getObject(
+  obj: unknown,
+  path: string,
+  defaultValue: unknown
+): unknown {
+  const keys = path.split(".");
 
-        if (result === undefined) {
-            return defaultValue;        
-        }
-    } 
+  let result: any = obj;
+  for (let key of keys) {
+    result = result[key];
 
-    return result ?? defaultValue; 
-} 
+    if (result === undefined) {
+      return defaultValue;
+    }
+
+    if (isEmpty(result) && typeof result != "function") {
+      return defaultValue;
+    }
+  }
+
+  return result ?? defaultValue;
+}

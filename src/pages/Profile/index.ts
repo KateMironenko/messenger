@@ -3,41 +3,121 @@ import "./profile.scss";
 import backImg from "../../static/images/next-icon.svg";
 import pictuteImg from "../../static/images/avatar-icon.svg";
 import pictuteEditImg from "../../static/images/avatar-edit.svg";
+import UserLogoutController from "../../../utils/controllers/user-logout";
+import UserController from "../../../utils/controllers/user-info";
 import Modal from "../../components/Modal/index";
-import UploadInput from "../../components/UploadInput/index";
 import Form from "../../components/Form/index";
-
+import UploadForm from "../../components/UploadForm/index";
 import Block from "../../modules/block/Block";
+import { connect } from "../../../utils/mydash/connect";
 
 type ProfileProps = {
   email: string;
-  firstName: string;
+  first_name: string;
   login: string;
-  secondName: string;
-  displayName: string;
+  second_name: string;
+  display_name: string;
   phone: string;
   oldPassword: string;
   newPassword: string;
   confirmPassword: string;
+  logout: Function;
+  showModal: string;
+  openAvatarModal: Function;
+  editProfile: Function;
+  avatar: string;
+  onUserInfoChange: Function;
+  onAvatarUpdate: Function;
+  inputDisabled: string;
+  onPasswordUpdate: Function;
+  changePassword: Function;
 };
+
+const withUser = connect((state) => state.user);
+
+function logout() {
+  UserLogoutController.logout();
+}
+
+function onUserInfoChange(data: ProfileProps) {
+  UserController.updateUser(data);
+}
+
+function onUserAvatarChange(data: FormData) {
+  UserController.updateAvatar(data);
+}
+
+function onUserPasswordChange(data: ProfileProps) {
+  UserController.updatePassword(data);
+}
 class Profile extends Block<ProfileProps> {
   constructor(props: any) {
     super("div", props);
+    this.setProps({
+      newPassword: "",
+      confirmPassword: "",
+      passwordFormClass: "profile__list profile__password-form",
+      logout: logout,
+      showModal: "",
+      inputDisabled: "disabled",
+      openAvatarModal: () => this.children.modal.openModal(),
+      editProfile: () => {
+        this.setProps({
+          inputDisabled: "",
+        });
+        this.children.form.setProps({
+          className: "profile__submit",
+        });
+      },
+      onUserInfoChange: (data: ProfileProps) => {
+        onUserInfoChange(data);
+        this.setProps({
+          inputDisabled: "disabled",
+        });
+        this.children.form.setProps({
+          className: "profile__submit hide-btn",
+        });
+      },
+      onAvatarUpdate: (data: FormData) => {
+        onUserAvatarChange(data);
+        this.children.modal.closeModal();
+      },
+      changePassword: () => {
+        this.children.form.hide();
+        this.children.passwordForm.show();
+      },
+      onPasswordUpdate: (data: ProfileProps) => {
+        onUserPasswordChange(data);
+        this.children.form.show();
+        this.children.passwordForm.hide();
+      },
+    });
+
+    UserController.getUser();
   }
 
   render() {
     this.children.modal = new Modal({
-      modalBody: new UploadInput({}),
+      modalBody: new UploadForm({
+        inputName: "avatar",
+        inputId: "avatar",
+        formClass: "modal__body",
+        btnName: "Change",
+        type: "submit",
+        className: "modal__submit-btn",
+        onSubmit: this.props.onAvatarUpdate,
+      }),
       header: "Update profile image",
-      btnName: "Change",
+      showModal: this.props.showModal,
     });
 
     this.children.form = new Form({
       formClass: "form-profile",
       btnName: "Save",
       type: "submit",
+      onSubmit: this.props.onUserInfoChange,
       name: "save",
-      className: "profile__submit",
+      className: "profile__submit hide-btn",
       inputs: [
         {
           inputContainerClass: "profile__item",
@@ -45,11 +125,12 @@ class Profile extends Block<ProfileProps> {
           inputId: "email-input",
           inputName: "email",
           inputType: "text",
-          inputPlaceholder: "kate@ya.ru",
+          inputDisabled: this.props.inputDisabled,
+          inputPlaceholder: this.props.email,
           inputLabel: "Email",
           validations:
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g,
-            value: ""
+            /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g,
+          value: this.props.email,
         },
         {
           inputContainerClass: "profile__item",
@@ -57,10 +138,11 @@ class Profile extends Block<ProfileProps> {
           inputId: "login-input",
           inputName: "login",
           inputType: "text",
-          inputPlaceholder: "kate",
+          inputPlaceholder: this.props.login,
           inputLabel: "Login",
+          inputDisabled: this.props.inputDisabled,
           validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
-          value: ""
+          value: this.props.login,
         },
         {
           inputContainerClass: "profile__item",
@@ -68,10 +150,11 @@ class Profile extends Block<ProfileProps> {
           inputId: "first-name-input",
           inputName: "first_name",
           inputType: "text",
-          inputPlaceholder: "Kate",
+          inputDisabled: this.props.inputDisabled,
+          inputPlaceholder: this.props.first_name,
           inputLabel: "Name",
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: ""
+          value: this.props.first_name,
         },
         {
           inputContainerClass: "profile__item",
@@ -79,10 +162,11 @@ class Profile extends Block<ProfileProps> {
           inputId: "second-name-input",
           inputName: "second_name",
           inputType: "text",
-          inputPlaceholder: "Surname",
+          inputDisabled: this.props.inputDisabled,
+          inputPlaceholder: this.props.second_name,
           inputLabel: "Surname",
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: ""
+          value: this.props.second_name,
         },
         {
           inputContainerClass: "profile__item",
@@ -90,10 +174,11 @@ class Profile extends Block<ProfileProps> {
           inputId: "display-name-input",
           inputName: "display_name",
           inputType: "text",
-          inputPlaceholder: "Kate",
+          inputDisabled: this.props.inputDisabled,
+          inputPlaceholder: this.props.display_name,
           inputLabel: "Name in chat",
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: ""
+          value: this.props.display_name,
         },
         {
           inputContainerClass: "profile__item",
@@ -101,10 +186,11 @@ class Profile extends Block<ProfileProps> {
           inputId: "phone-input",
           inputName: "phone",
           inputType: "text",
-          inputPlaceholder: "+7 (909) 967 30 30",
+          inputDisabled: this.props.inputDisabled,
+          inputPlaceholder: this.props.phone,
           inputLabel: "Telephone",
           validations: /^\+?\d{10,15}$/,
-          value: ""
+          value: this.props.phone,
         },
       ],
     });
@@ -114,6 +200,7 @@ class Profile extends Block<ProfileProps> {
       btnName: "Save",
       type: "submit",
       name: "save",
+      onSubmit: this.props.onPasswordUpdate,
       className: "profile__submit",
       inputs: [
         {
@@ -122,16 +209,15 @@ class Profile extends Block<ProfileProps> {
           inputId: "oldPassword-input",
           inputName: "oldPassword",
           inputType: "password",
-          inputPlaceholder: " ",
+          inputPlaceholder: "",
           inputLabel: "Old password",
-          value: "password",
           validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
         },
         {
           inputContainerClass: "profile__item",
           inputClass: "profile__item-input",
           inputId: "password-input",
-          inputName: "password",
+          inputName: "newPassword",
           inputType: "password",
           inputPlaceholder: "",
           inputLabel: "New password",
@@ -150,33 +236,33 @@ class Profile extends Block<ProfileProps> {
       ],
     });
 
+    this.children.passwordForm.hide();
+
     return this.compile(blockTemplate, {
       modal: this.children.modal,
       inputImg: this.children.inputImg,
       backImg: backImg,
-      pictuteImg: pictuteImg,
+      pictuteImg: this.props.avatar
+        ? "https://ya-praktikum.tech/api/v2/resources" + this.props.avatar
+        : pictuteImg,
       pictuteEditImg: pictuteEditImg,
       email: this.props.email,
-      firstName: this.props.firstName,
+      avatar: this.props.avatar,
+      firstName: this.props.first_name,
       login: this.props.login,
-      secondName: this.props.secondName,
-      displayName: this.props.displayName,
+      secondName: this.props.second_name,
+      displayName: this.props.display_name,
       phone: this.props.phone,
       oldPassword: this.props.oldPassword,
       newPassword: this.props.newPassword,
       confirmPassword: this.props.confirmPassword,
+      logout: this.props.logout,
+      avatarButton: this.children.avatarButton,
+      openAvatarModal: this.props.openAvatarModal,
+      editProfile: this.props.editProfile,
+      changePassword: this.props.changePassword,
     });
   }
 }
-export const profile = new Profile({
-  email: "kate@ya.ru",
-  firstName: "Kate",
-  login: "kate",
-  secondName: "fff",
-  displayName: "Kate",
-  phone: "+7 (909) 967 30 30",
-  oldPassword: "password",
-  newPassword: "",
-  confirmPassword: "",
-  passwordFormClass: "profile__list profile__password-form",
-});
+
+export default withUser(Profile);

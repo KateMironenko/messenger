@@ -1,4 +1,3 @@
-import "./input.scss";
 import Block from "../../modules/block/Block";
 import { blockTemplate } from "./input.tmpl";
 
@@ -10,9 +9,10 @@ type InputProps = {
   inputType: string;
   inputPlaceholder: string;
   inputLabel: string;
-  validations: RegExp;
+  validations?: RegExp;
   valid: boolean;
   value: string;
+  inputDisabled?: string;
 };
 export default class Input extends Block<InputProps> {
   constructor(props: InputProps) {
@@ -34,10 +34,11 @@ export default class Input extends Block<InputProps> {
     const input = event.target as HTMLInputElement;
 
     const { value }: { value: string } = input;
-
-    if (!this.props.validations.test(value)) {
-      this._showError(value);
-      return;
+    if (typeof this.props.validations !== "undefined") {
+      if (!this.props.validations.test(value)) {
+        this._showError(value);
+        return;
+      }
     }
 
     this._hideError(value);
@@ -52,7 +53,7 @@ export default class Input extends Block<InputProps> {
 
     const { value }: { value: string } = input;
 
-    if (!this.props.validations.test(value)) {
+    if (!this.props.validations?.test(value)) {
       this._showError(value);
       return;
     }
