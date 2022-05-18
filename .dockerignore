@@ -1,0 +1,10 @@
+node_modules
+dist
+logs
+*[Dd]ocker*
+.editorconfig
+.git*
+*.md
+
+.vscode/*
+npm-debug*%

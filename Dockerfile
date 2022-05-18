@@ -1,6 +1,21 @@
-FROM ubuntu:18.04
-RUN apt update && apt install -y nodejs && apt install -y npm
-WORKDIR /var/www
-COPY ./index.ts index.ts
-EXPOSE 3000
-CMD webpack
+# Build
+
+FROM node:18-alpine as build
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN apk add --update --no-cache python3 build-base
+RUN npm ci --no-optional
+RUN npm run build
+
+# Run
+
+FROM node:18-slim
+WORKDIR /usr/src/app
+
+COPY . .
+
+COPY --from=build /usr/src/app/dist/ /usr/src/app/dist/
+COPY --from=build /usr/src/app/node_modules/ /usr/src/app/node_modules
+CMD npm run serve

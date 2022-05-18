@@ -10,7 +10,7 @@
 [Design link](https://www.figma.com/file/Iht6sS3niCa1KQ9bduKLdB/Messenger?node-id=0%3A1)
 
 ### Site link
-[Messenger link](https://wonderful-borg-ff08db.netlify.app/)
+[Messenger link](https://ya-messenger-project.herokuapp.com/)
 
 ### Messenger web-application with features:
 
@@ -21,7 +21,23 @@
 -- search messenges
 -- edit profile info
 -- forms validation
+
+### Tecnologies:
+
 -- TypeScript
+-- Docker
+-- Webpack
+-- Mocha
+-- Heroku
+
+### Project deploy
+```bash
+heroku container:push web
+```
+
+```bash
+heroku container:release web
+```
 
 ### Project setup
 
@@ -35,5 +51,5 @@ npm run build
 #### Compiles and hot-reloads for development
 
 ```
-npm run dev 
+npm run dev
 ```
