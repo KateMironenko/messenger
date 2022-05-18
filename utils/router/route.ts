@@ -1,5 +1,5 @@
-import Block from "../../src/modules/block/Block";
-import { render } from "../mydash/render";
+import Block from '../../src/modules/block/Block';
+import {render} from '../mydash/render';
 
 function isEqual(lhs: any, rhs: any) {
   return lhs === rhs;
@@ -7,8 +7,11 @@ function isEqual(lhs: any, rhs: any) {
 
 class Route {
   public _pathname: string;
+
   public _blockClass: any;
+
   public _block: Block<any> | null;
+
   public _props: any;
 
   constructor(pathname: string, view: any, props: any) {

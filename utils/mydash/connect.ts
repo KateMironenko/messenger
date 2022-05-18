@@ -1,5 +1,5 @@
-import store, { StoreEvents } from "../store/store";
-import Block from "../../src/modules/block/Block";
+import store, {StoreEvents} from '../store/store';
+import Block from '../../src/modules/block/Block';
 
 type Indexed = Record<string, any>;
 
@@ -9,11 +9,11 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
       constructor(props: {}) {
         let state = mapStateToProps(store.getState());
 
-        super("", { ...props, ...state });
+        super({...props, ...state}, '');
 
         store.on(StoreEvents.Updated, () => {
           const newState = mapStateToProps(store.getState());
-          this.setProps({ ...newState });
+          this.setProps({...newState});
           state = newState;
         });
       }

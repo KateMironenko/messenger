@@ -1,12 +1,12 @@
-import Router from "../router/router";
-import LoginAPI from "../api/login-api";
+import Router from '../router/router';
+import LoginAPI from '../api/login-api';
 
 interface LoginFormModel {
   login: string;
   password: string;
 }
 
-const router = new Router("#root");
+const router = new Router('#root');
 const loginApi = new LoginAPI();
 
 class UserLoginController {
@@ -14,11 +14,11 @@ class UserLoginController {
     try {
       loginApi
         .request(data)
-        .then((data) => {
+        .then(data => {
           window.userID = data;
         })
         .then(() => {
-          router.go("/messenger");
+          router.go('/messenger');
         });
     } catch (error) {
       console.log(error);

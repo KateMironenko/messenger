@@ -1,4 +1,4 @@
-import UsersAPI from "../api/users-api";
+import UsersAPI from '../api/users-api';
 
 interface UsersFormModel {
   login: string;

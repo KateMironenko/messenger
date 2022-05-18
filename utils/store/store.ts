@@ -1,10 +1,10 @@
-import EventBus from "../../src/modules/eventBus/EventBus";
-import set from "../mydash/set";
+import EventBus from '../../src/modules/eventBus/EventBus';
+import set from '../mydash/set';
 
 type Indexed = Record<string, string>;
 
 export enum StoreEvents {
-  Updated = "updated",
+  Updated = 'updated',
 }
 
 class Store extends EventBus {

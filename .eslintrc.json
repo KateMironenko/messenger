@@ -1,14 +1,77 @@
 {
-    "extends": "airbnb",
+    "extends": "xo",
     "parser": "@typescript-eslint/parser",
     "plugins": [
         "@typescript-eslint"
     ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true,
+        "mocha": true
+    },
     "rules": {
         "max-len": [
-            2,
-            100
+            "error",
+            {
+                "code": 500,
+                "ignoreStrings": true,
+                "ignoreUrls": true,
+                "ignoreComments": true
+            }
         ],
-        "@typescript-eslint/no-unused-vars": 2
+        "@typescript-eslint/no-unused-vars": 2,
+        "indent": [
+            "error",
+            2,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 1,
+                "maxBOF": 1
+            }
+        ],
+        "no-trailing-spaces": "error",
+        "no-constructor-return": "off",
+        "no-unneeded-ternary": "error",
+        "no-prototype-builtins": "off",
+        "no-whitespace-before-property": "error",
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "arrow-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "no-duplicate-imports": "error",
+        "no-useless-rename": "error",
+        "no-var": "error",
+        "no-new": "off",
+        "prefer-const": "error",
+        "default-case": "error",
+        "no-nested-ternary": "off",
+        "no-unused-vars": [
+            "error",
+            {
+                "args": "none"
+            }
+        ]
     }
 }

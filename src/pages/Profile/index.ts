@@ -1,15 +1,15 @@
-import { blockTemplate } from "./profile.tmpl";
-import "./profile.scss";
-import backImg from "../../static/images/next-icon.svg";
-import pictuteImg from "../../static/images/avatar-icon.svg";
-import pictuteEditImg from "../../static/images/avatar-edit.svg";
-import UserLogoutController from "../../../utils/controllers/user-logout";
-import UserController from "../../../utils/controllers/user-info";
-import Modal from "../../components/Modal/index";
-import Form from "../../components/Form/index";
-import UploadForm from "../../components/UploadForm/index";
-import Block from "../../modules/block/Block";
-import { connect } from "../../../utils/mydash/connect";
+import {blockTemplate} from './profile.tmpl';
+import './profile.scss';
+import backImg from '../../static/images/next-icon.svg';
+import pictuteImg from '../../static/images/avatar-icon.svg';
+import pictuteEditImg from '../../static/images/avatar-edit.svg';
+import UserLogoutController from '../../../utils/controllers/user-logout';
+import UserController from '../../../utils/controllers/user-info';
+import Modal from '../../components/Modal/index';
+import Form from '../../components/Form/index';
+import UploadForm from '../../components/UploadForm/index';
+import Block from '../../modules/block/Block';
+import {connect} from '../../../utils/mydash/connect';
 
 type ProfileProps = {
   email: string;
@@ -33,7 +33,7 @@ type ProfileProps = {
   changePassword: Function;
 };
 
-const withUser = connect((state) => state.user);
+const withUser: any = connect(state => state.user);
 
 function logout() {
   UserLogoutController.logout();
@@ -50,32 +50,33 @@ function onUserAvatarChange(data: FormData) {
 function onUserPasswordChange(data: ProfileProps) {
   UserController.updatePassword(data);
 }
+
 class Profile extends Block<ProfileProps> {
   constructor(props: any) {
-    super("div", props);
+    super(props, 'div');
     this.setProps({
-      newPassword: "",
-      confirmPassword: "",
-      passwordFormClass: "profile__list profile__password-form",
-      logout: logout,
-      showModal: "",
-      inputDisabled: "disabled",
+      newPassword: '',
+      confirmPassword: '',
+      passwordFormClass: 'profile__list profile__password-form',
+      logout,
+      showModal: '',
+      inputDisabled: 'disabled',
       openAvatarModal: () => this.children.modal.openModal(),
       editProfile: () => {
         this.setProps({
-          inputDisabled: "",
+          inputDisabled: ''
         });
         this.children.form.setProps({
-          className: "profile__submit",
+          className: 'profile__submit'
         });
       },
       onUserInfoChange: (data: ProfileProps) => {
         onUserInfoChange(data);
         this.setProps({
-          inputDisabled: "disabled",
+          inputDisabled: 'disabled'
         });
         this.children.form.setProps({
-          className: "profile__submit hide-btn",
+          className: 'profile__submit hide-btn'
         });
       },
       onAvatarUpdate: (data: FormData) => {
@@ -90,7 +91,7 @@ class Profile extends Block<ProfileProps> {
         onUserPasswordChange(data);
         this.children.form.show();
         this.children.passwordForm.hide();
-      },
+      }
     });
 
     UserController.getUser();
@@ -99,141 +100,141 @@ class Profile extends Block<ProfileProps> {
   render() {
     this.children.modal = new Modal({
       modalBody: new UploadForm({
-        inputName: "avatar",
-        inputId: "avatar",
-        formClass: "modal__body",
-        btnName: "Change",
-        type: "submit",
-        className: "modal__submit-btn",
-        onSubmit: this.props.onAvatarUpdate,
+        inputName: 'avatar',
+        inputId: 'avatar',
+        formClass: 'modal__body',
+        btnName: 'Change',
+        type: 'submit',
+        className: 'modal__submit-btn',
+        onSubmit: this.props.onAvatarUpdate
       }),
-      header: "Update profile image",
-      showModal: this.props.showModal,
+      header: 'Update profile image',
+      showModal: this.props.showModal
     });
 
     this.children.form = new Form({
-      formClass: "form-profile",
-      btnName: "Save",
-      type: "submit",
+      formClass: 'form-profile',
+      btnName: 'Save',
+      type: 'submit',
       onSubmit: this.props.onUserInfoChange,
-      name: "save",
-      className: "profile__submit hide-btn",
+      name: 'save',
+      className: 'profile__submit hide-btn',
       inputs: [
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "email-input",
-          inputName: "email",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'email-input',
+          inputName: 'email',
+          inputType: 'text',
           inputDisabled: this.props.inputDisabled,
           inputPlaceholder: this.props.email,
-          inputLabel: "Email",
+          inputLabel: 'Email',
           validations:
-            /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g,
-          value: this.props.email,
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g,
+          value: this.props.email
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "login-input",
-          inputName: "login",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'login-input',
+          inputName: 'login',
+          inputType: 'text',
           inputPlaceholder: this.props.login,
-          inputLabel: "Login",
+          inputLabel: 'Login',
           inputDisabled: this.props.inputDisabled,
           validations: /(?!^\d+$)^[A-Za-z0-9]{3,20}$/,
-          value: this.props.login,
+          value: this.props.login
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "first-name-input",
-          inputName: "first_name",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'first-name-input',
+          inputName: 'first_name',
+          inputType: 'text',
           inputDisabled: this.props.inputDisabled,
           inputPlaceholder: this.props.first_name,
-          inputLabel: "Name",
+          inputLabel: 'Name',
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: this.props.first_name,
+          value: this.props.first_name
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "second-name-input",
-          inputName: "second_name",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'second-name-input',
+          inputName: 'second_name',
+          inputType: 'text',
           inputDisabled: this.props.inputDisabled,
           inputPlaceholder: this.props.second_name,
-          inputLabel: "Surname",
+          inputLabel: 'Surname',
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: this.props.second_name,
+          value: this.props.second_name
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "display-name-input",
-          inputName: "display_name",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'display-name-input',
+          inputName: 'display_name',
+          inputType: 'text',
           inputDisabled: this.props.inputDisabled,
           inputPlaceholder: this.props.display_name,
-          inputLabel: "Name in chat",
+          inputLabel: 'Name in chat',
           validations: /[A-Za-zА-Яа-я]+$/,
-          value: this.props.display_name,
+          value: this.props.display_name
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "phone-input",
-          inputName: "phone",
-          inputType: "text",
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'phone-input',
+          inputName: 'phone',
+          inputType: 'text',
           inputDisabled: this.props.inputDisabled,
           inputPlaceholder: this.props.phone,
-          inputLabel: "Telephone",
+          inputLabel: 'Telephone',
           validations: /^\+?\d{10,15}$/,
-          value: this.props.phone,
-        },
-      ],
+          value: this.props.phone
+        }
+      ]
     });
 
     this.children.passwordForm = new Form({
-      formClass: "form-password",
-      btnName: "Save",
-      type: "submit",
-      name: "save",
+      formClass: 'form-password',
+      btnName: 'Save',
+      type: 'submit',
+      name: 'save',
       onSubmit: this.props.onPasswordUpdate,
-      className: "profile__submit",
+      className: 'profile__submit',
       inputs: [
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "oldPassword-input",
-          inputName: "oldPassword",
-          inputType: "password",
-          inputPlaceholder: "",
-          inputLabel: "Old password",
-          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'oldPassword-input',
+          inputName: 'oldPassword',
+          inputType: 'password',
+          inputPlaceholder: '',
+          inputLabel: 'Old password',
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "password-input",
-          inputName: "newPassword",
-          inputType: "password",
-          inputPlaceholder: "",
-          inputLabel: "New password",
-          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'password-input',
+          inputName: 'newPassword',
+          inputType: 'password',
+          inputPlaceholder: '',
+          inputLabel: 'New password',
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/
         },
         {
-          inputContainerClass: "profile__item",
-          inputClass: "profile__item-input",
-          inputId: "password-confirm-input",
-          inputName: "password",
-          inputType: "password",
-          inputPlaceholder: " ",
-          inputLabel: "Confirm password",
-          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
-        },
-      ],
+          inputContainerClass: 'profile__item',
+          inputClass: 'profile__item-input',
+          inputId: 'password-confirm-input',
+          inputName: 'password',
+          inputType: 'password',
+          inputPlaceholder: ' ',
+          inputLabel: 'Confirm password',
+          validations: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/
+        }
+      ]
     });
 
     this.children.passwordForm.hide();
@@ -241,11 +242,11 @@ class Profile extends Block<ProfileProps> {
     return this.compile(blockTemplate, {
       modal: this.children.modal,
       inputImg: this.children.inputImg,
-      backImg: backImg,
-      pictuteImg: this.props.avatar
-        ? "https://ya-praktikum.tech/api/v2/resources" + this.props.avatar
-        : pictuteImg,
-      pictuteEditImg: pictuteEditImg,
+      backImg,
+      pictuteImg: this.props.avatar ?
+        `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` :
+        pictuteImg,
+      pictuteEditImg,
       email: this.props.email,
       avatar: this.props.avatar,
       firstName: this.props.first_name,
@@ -260,7 +261,7 @@ class Profile extends Block<ProfileProps> {
       avatarButton: this.children.avatarButton,
       openAvatarModal: this.props.openAvatarModal,
       editProfile: this.props.editProfile,
-      changePassword: this.props.changePassword,
+      changePassword: this.props.changePassword
     });
   }
 }

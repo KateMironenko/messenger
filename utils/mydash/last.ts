@@ -1,10 +1,10 @@
 // [1, 2, 3, 4] => 4
 
-function last(list: Array<any>): undefined | unknown {
+export default function last(list: Array<any>): undefined | unknown {
   if (!Array.isArray(list)) {
     return undefined;
   }
 
-  const length = list.length;
+  const {length} = list;
   return length ? list[length - 1] : undefined;
 }

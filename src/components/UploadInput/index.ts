@@ -1,40 +1,40 @@
-import "./upload.tmpl";
-import Block from "../../modules/block/Block";
-import { blockTemplate } from "./upload.tmpl";
-import attachImg from "../../static/images/attach-icon.svg";
-export default class UploadInput extends Block{
+import {blockTemplate} from './upload.tmpl';
+import Block from '../../modules/block/Block';
+import attachImg from '../../static/images/attach-icon.svg';
+
+export default class UploadInput extends Block {
   constructor(props: {}) {
-    super("div", props);
+    super(props, 'div');
     this.setProps({
-      attachImg: attachImg,
+      attachImg,
       events: {
         focusout: (event: Event) => {
           this._onFocus(event);
         },
         blur: (event: Event) => {
           this._onBlur(event);
-        },
-      },
+        }
+      }
     });
   }
 
   _onFocus(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-    const { value }: { value: string } = input;
+    const {value}: { value: string } = input;
 
     this.setProps({
-      value: value,
+      value
     });
   }
 
   _onBlur(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-    const { value }: { value: string } = input;
+    const {value}: { value: string } = input;
 
     this.setProps({
-      value: value,
+      value
     });
   }
 

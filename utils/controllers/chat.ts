@@ -1,5 +1,5 @@
-import ChatAPI from "../api/chat-api";
-import store from "../store/store";
+import ChatAPI from '../api/chat-api';
+import store from '../store/store';
 
 interface ChatFormModel {
   title: string;
@@ -15,8 +15,8 @@ const chatApi = new ChatAPI();
 class ChatController {
   public async getChats() {
     try {
-      chatApi.request().then((data) => {
-        store.set("chats.chats", data);
+      chatApi.request().then(data => {
+        store.set('chats.chats', data);
       });
     } catch (error) {
       console.log(error);

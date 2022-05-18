@@ -1,10 +1,10 @@
-import { blockTemplate } from "./error.tmpl";
-import "./error.scss";
-import Block from "../../modules/block/Block";
+import {blockTemplate} from './error.tmpl';
+import './error.scss';
+import Block from '../../modules/block/Block';
 
 class Error extends Block {
   constructor(props: {}) {
-    super("div", props);
+    super(props, 'div');
   }
 
   render() {
@@ -12,6 +12,6 @@ class Error extends Block {
   }
 }
 export const error = new Error({
-  errorCode: "404",
-  errorText: "Page not found",
+  errorCode: '404',
+  errorText: 'Page not found'
 });
