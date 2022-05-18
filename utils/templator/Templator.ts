@@ -44,6 +44,7 @@ export class Templator {
         }
       });
     }
+
     return tmpl;
   }
 }

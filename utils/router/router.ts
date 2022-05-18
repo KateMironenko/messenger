@@ -15,6 +15,7 @@ class Router {
     if (Router.__instance) {
       return Router.__instance;
     }
+
     Router.__instance = this;
     this.routes = [];
     this.history = window.history;

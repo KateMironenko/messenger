@@ -23,6 +23,7 @@ export function isEqual(lhs: [] | PlainObject, rhs: any | PlainObject) {
   if (lhs === null || lhs === undefined) {
     return false;
   }
+
   if (Object.keys(lhs).length !== Object.keys(rhs).length) {
     return false;
   }
@@ -33,6 +34,7 @@ export function isEqual(lhs: [] | PlainObject, rhs: any | PlainObject) {
       if (isEqual(value, rightValue)) {
         continue;
       }
+
       return false;
     }
 
