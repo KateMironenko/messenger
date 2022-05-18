@@ -5,23 +5,23 @@
 }
 
 .auth {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
   align-items: stretch;
+  display: flex;
+  height: 100vh;
   position: relative;
+  width: 100vw;
 
   &__left-block {
-    width: 45.5%;
+    align-items: center;
+    background: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background: #ffffff;
+    width: 45.5%;
   }
 
   &__right-block {
+    background: rgb(239 151 20 / 58%);
     width: 54.5%;
-    background: rgba(239, 151, 20, 0.58);
   }
 }

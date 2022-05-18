@@ -1,14 +1,21 @@
-import Route from "../router/route";
+import Route from '../router/route';
+
 class Router {
   static __instance: any;
+
   public routes: Array<Route>;
+
   public history: any;
+
   public _currentRoute: any | null;
+
   public _rootQuery: string;
+
   constructor(rootQuery: string) {
     if (Router.__instance) {
       return Router.__instance;
     }
+
     Router.__instance = this;
     this.routes = [];
     this.history = window.history;
@@ -18,7 +25,7 @@ class Router {
 
   use(pathname: string, block: any) {
     const route: Route = new Route(pathname, block, {
-      rootQuery: this._rootQuery,
+      rootQuery: this._rootQuery
     });
 
     this.routes.push(route);
@@ -48,12 +55,12 @@ class Router {
   }
 
   go(pathname: string) {
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
   getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname));
+    return this.routes.find(route => route.match(pathname));
   }
 }
 

@@ -1,40 +1,45 @@
-import EventBus from "../eventBus/EventBus";
-import { Templator } from "../../../utils/templator/Templator";
-import { v4 as makeUUID } from "uuid";
+import {v4 as makeUUID} from 'uuid';
+import EventBus from '../eventBus/EventBus';
+import {Templator} from '../../../utils/templator/Templator';
 
 abstract class Block<Props extends {} = {}> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_RENDER: 'flow:render',
+    FLOW_CDU: 'flow:component-did-update'
   };
 
   private _element: HTMLElement;
+
   private _meta: {
     tagName: string;
     props: Props;
   } | null = null;
- props: Props;
+
+  props: Props;
+
   eventBus;
+
   children;
+
   private _id: string;
+
   tagName: string;
 
-  constructor(tagName: string = "div", propsAndChildren: Props ) {
-    const { children, props }: { [key: string]: any } =
-      this._getChildren(propsAndChildren);
+  constructor(propsAndChildren: Props, tagName: string = 'div') {
+    const {props, children}: { [key: string]: any } = this._getChildren(propsAndChildren);
 
     this.children = children;
     const eventBus = new EventBus();
 
     this._meta = {
       tagName,
-      props,
+      props
     };
     this._id = makeUUID();
 
-    this.props = this._makePropsProxy({ ...props, __id: this._id });
+    this.props = this._makePropsProxy({...props, __id: this._id});
 
     this.eventBus = () => eventBus;
 
@@ -54,16 +59,16 @@ abstract class Block<Props extends {} = {}> {
       }
     });
 
-    return { children, props };
+    return {children, props};
   }
 
   public compile(template: string, props: any) {
-    const propsAndChildren = { ...props };
+    const propsAndChildren = {...props};
 
     Object.entries(this.children).forEach(([key, child]: Array<any>) => {
       if (Array.isArray(child)) {
         propsAndChildren[key] = [];
-        child.forEach((element) => {
+        child.forEach(element => {
           propsAndChildren[key].push(`<div data-id="${element._id}"></div>`);
         });
       } else {
@@ -71,7 +76,7 @@ abstract class Block<Props extends {} = {}> {
       }
     });
 
-    const fragment: any = this._createDocumentElement("template");
+    const fragment: any = this._createDocumentElement('template');
 
     const tmpl: Templator = new Templator(template);
 
@@ -79,7 +84,7 @@ abstract class Block<Props extends {} = {}> {
 
     Object.values(this.children).forEach((child: any) => {
       if (Array.isArray(child)) {
-        child.forEach((element) => {
+        child.forEach(element => {
           const stub = fragment.content.querySelector(
             `[data-id="${element._id}"]`
           );
@@ -101,9 +106,9 @@ abstract class Block<Props extends {} = {}> {
   }
 
   private _createResources() {
-    const { tagName }: any = this._meta;
+    const {tagName}: any = this._meta;
     this._element = this._createDocumentElement(tagName);
-    this._element?.setAttribute("data-id", this._id);
+    this._element?.setAttribute('data-id', this._id);
   }
 
   public init() {
@@ -157,7 +162,7 @@ abstract class Block<Props extends {} = {}> {
   private _render() {
     const block = this.render();
     this._removeEvents();
-    this._element.innerHTML = "";
+    this._element.innerHTML = '';
 
     this._element.appendChild(block);
 
@@ -167,15 +172,15 @@ abstract class Block<Props extends {} = {}> {
   public render(): any {}
 
   private _addEvents(): void {
-    const { events = {} }: any = this.props;
-    Object.keys(events).forEach((eventName) => {
+    const {events = {}}: any = this.props;
+    Object.keys(events).forEach(eventName => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _removeEvents(): void {
-    const { events = {} }: any = this.props;
-    Object.keys(events).forEach((eventName) => {
+    const {events = {}}: any = this.props;
+    Object.keys(events).forEach(eventName => {
       this._element.removeEventListener(eventName, events[eventName]);
     });
   }
@@ -186,16 +191,16 @@ abstract class Block<Props extends {} = {}> {
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
         target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target });
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target});
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
-      },
+        throw new Error('Нет доступа');
+      }
     });
   }
 
@@ -204,11 +209,11 @@ abstract class Block<Props extends {} = {}> {
   }
 
   public show() {
-    this.element.style.display = "block";
+    this.element.style.display = 'block';
   }
 
   public hide() {
-    this.element.style.display = "none";
+    this.element.style.display = 'none';
   }
 }
 

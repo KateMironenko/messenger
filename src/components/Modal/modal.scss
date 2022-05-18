@@ -2,71 +2,71 @@ $main-color: #ef9714;
 
 .modal {
   &__container {
+    align-items: center;
+    background: rgb(0 0 0 / 40%);
     color: #1e1e1e;
+    display: none;
     font-family: Roboto;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
     position: fixed;
     top: 0;
-    left: 0;
-    display: none;
     width: 100vw;
-    height: 100vh;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.4);
-    align-items: center;
-    justify-content: center;
   }
 
   &__box {
-    width: 100%;
-    max-width: 340px;
-    box-sizing: border-box;
-    background: #ffffff;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    background: #fff;
     border-radius: 12px;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    box-sizing: border-box;
+    max-width: 340px;
     padding: 40px 30px;
     position: relative;
+    width: 100%;
   }
 
   &__header {
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
     color: #1e1e1e;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
     margin: 0 auto 50px;
+    text-align: center;
   }
 
   &__close-btn {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    height: 20px;
+    outline: none;
+    padding: 0;
     position: absolute;
     right: 20px;
     top: 20px;
     width: 20px;
-    padding: 0;
-    cursor: pointer;
-    background: none;
-    outline: none;
-    height: 20px;
-    border: none;
   }
 
   &__submit-btn {
-    width: 100%;
-    padding: 0;
-    height: 37px;
-    border-radius: 8px;
-    background-color: $main-color !important;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 13px;
-    display: flex;
-    border: none;
-    outline: none;
-    margin: 33px auto 0;
-    text-align: center;
-    justify-content: center;
-    color: #ffffff;
     align-items: center;
+    background-color: $main-color !important;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    font-size: 13px;
+    font-weight: 400;
+    height: 37px;
+    justify-content: center;
+    line-height: 13px;
+    margin: 33px auto 0;
+    outline: none;
+    padding: 0;
+    text-align: center;
     transition: all 0.3s ease-in;
+    width: 100%;
 
     &:hover {
       transform: translateY(-3px);

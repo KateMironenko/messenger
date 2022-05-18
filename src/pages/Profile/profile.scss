@@ -1,24 +1,24 @@
 $main-color: #ef9714;
 
 .profile {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding-left: 64px;
   color: #1e1e1e;
-  height: 100%;
+  display: flex;
   font-family: Roboto;
+  height: 100%;
+  justify-content: center;
+  padding-left: 64px;
 
   &__back-link {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 64px;
-    position: absolute;
-    left: 0;
-    top: 0;
     background: #fbfbfb;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 64px;
   }
 
   &__back-img {
@@ -26,28 +26,29 @@ $main-color: #ef9714;
   }
 
   &__container {
-    width: 100%;
     max-width: 510px;
+    width: 100%;
   }
 
   &__avatar {
-    width: 130px;
-    height: 130px;
-    overflow: hidden;
-    background: #efefef;
-    border-radius: 100px;
-    margin: 0 auto 21px;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    background: #efefef;
+    border: 0;
+    border-radius: 100px;
     cursor: pointer;
-    transition: all 0.5s ease-in;
-    border: none;
+    display: flex;
+    height: 130px;
+    justify-content: center;
+    margin: 0 auto 21px;
     outline: none;
+    overflow: hidden;
     padding: 0;
+    transition: all 0.5s ease-in;
+    width: 130px;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgb(0 0 0 / 50%);
+
       .profile__avatar-icon {
         display: none;
         width: 100%;
@@ -61,43 +62,44 @@ $main-color: #ef9714;
 
   &__avatar-icon {
     width: 100%;
+
     &_edit {
       display: none;
     }
   }
 
   &__name {
-    margin: 0 auto 60px;
-    font-weight: 500;
     font-size: 16px;
-    text-align: center;
+    font-weight: 500;
     line-height: 16px;
+    margin: 0 auto 60px;
+    text-align: center;
   }
 
   &__item {
-    padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
   }
 
   &__item-input {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
-    color: #999999;
-    height: 16px;
     background: none;
-    padding: 0;
+    border: 0;
+    color: #999;
+    font-size: 13px;
+    font-weight: 500;
+    height: 16px;
+    line-height: 13px;
     margin: 0;
-    width: 100%;
-    border: none;
+    padding: 0;
     text-align: right;
+    width: 100%;
 
     &:focus-visible {
       outline: none;
     }
 
     &.invalid-input {
-      color: red;
+      color: rgb(220, 51, 22);
     }
 
     &_capitalize {
@@ -115,39 +117,39 @@ $main-color: #ef9714;
     label {
       display: block;
       font-size: 13px;
-      line-height: 13px;
       font-weight: 400;
-      top: 11px;
+      line-height: 13px;
       margin: 0;
       position: absolute;
+      top: 11px;
     }
   }
 
   &__item-name {
     font-size: 13px;
-    line-height: 13px;
     font-weight: 400;
+    line-height: 13px;
     margin: 0;
     position: absolute;
   }
 
   &__submit {
-    width: 100%;
-    max-width: 280px;
-    height: 37px;
-    background: #ef9714;
-    border-radius: 8px;
-    margin: 60px auto 0;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    color: #ffffff;
-    font-size: 13px;
-    line-height: 13px;
-    border: none;
+    background: #ef9714;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
     cursor: pointer;
+    display: flex;
+    font-size: 13px;
+    height: 37px;
+    justify-content: center;
+    line-height: 13px;
+    margin: 60px auto 0;
+    max-width: 280px;
     outline: none;
     transition: all 0.3s ease-in;
+    width: 100%;
 
     &:hover {
       transform: translateY(-3px);
@@ -170,23 +172,23 @@ $main-color: #ef9714;
   }
 
   &__action-button {
-    outline: none;
     background: none;
-    border: none;
-    text-align: start;
+    border: 0;
+    border-bottom: 1px solid #eaeaea;
     color: $main-color;
-    padding: 10px 0;
+    cursor: pointer;
     font-size: 13px;
     line-height: 13px;
-    cursor: pointer;
-    border-bottom: 1px solid #eaeaea;
+    outline: none;
+    padding: 10px 0;
+    text-align: start;
 
     &_red {
-      color: #ff0000;
+      color: #f00;
     }
 
     &:last-of-type {
-      border: none;
+      border: 0;
     }
   }
 }
@@ -197,17 +199,17 @@ $main-color: #ef9714;
   }
 
   &__input-lable {
-    display: flex;
     align-items: center;
-    padding: 0;
+    color: #767676;
     cursor: pointer;
+    display: flex;
     font-size: 14px;
     line-height: 19px;
-    text-align: center;
-    color: #767676;
     margin: 0 auto;
-    text-decoration-line: underline;
     max-width: 145px;
+    padding: 0;
+    text-align: center;
+    text-decoration-line: underline;
 
     img {
       margin-right: 8px;

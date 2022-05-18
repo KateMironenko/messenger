@@ -1,25 +1,26 @@
-import { blockTemplate } from "./modal.tmpl";
-import "./modal.scss";
-import removeImg from "../../static/images/remove-icon.svg";
-import Block from "../../modules/block/Block";
-export default class Modal extends Block{
+import {blockTemplate} from './modal.tmpl';
+import './modal.scss';
+import removeImg from '../../static/images/remove-icon.svg';
+import Block from '../../modules/block/Block';
+
+export default class Modal extends Block {
   constructor(props: {}) {
-    super("div", props);
+    super(props, 'div');
     this.setProps({
-      onCloseModal: () => this.closeModal(),
+      onCloseModal: () => this.closeModal()
     });
   }
 
   openModal() {
     this.setProps({
-      showModal: "modal-show",
-      closeIcon: removeImg,
+      showModal: 'modal-show',
+      closeIcon: removeImg
     });
   }
 
   closeModal() {
     this.setProps({
-      showModal: "",
+      showModal: ''
     });
   }
 

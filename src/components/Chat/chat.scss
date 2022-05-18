@@ -1,27 +1,27 @@
 $main-color: #ef9714;
 
 .message {
-  width: 100%;
+  background: none;
+  border-color: #eaeaea;
+  border-style: solid;
+  border-width: 0 0 1px;
+  cursor: pointer;
   display: flex;
   padding: 12px 10px;
   text-align: start;
-  background: none;
-  border-width: 0 0 1px 0;
-  border-style: solid;
-  border-color: #eaeaea;
-  cursor: pointer;
   transition: all 0.3s ease-in;
+  width: 100%;
 
   &:hover {
-    background: rgba(239, 151, 20, 0.15);
+    background: rgb(239 151 20 / 15%);
   }
 
   &:focus {
-    background: rgba(239, 151, 20, 0.15);
+    background: rgb(239 151 20 / 15%);
   }
 
   &_clicked {
-    background: rgba(239, 151, 20, 0.15);
+    background: rgb(239 151 20 / 15%);
   }
 
   &__info {
@@ -31,16 +31,17 @@ $main-color: #ef9714;
   &__text-you {
     color: #1e1e1e;
   }
+
   &__avatar {
-    width: 47px;
-    height: 47px;
-    border-radius: 100px;
-    background: #efefef;
-    overflow: hidden;
-    display: flex;
     align-items: center;
+    background: #efefef;
+    border-radius: 100px;
+    display: flex;
+    height: 47px;
     justify-content: center;
     margin-right: 10px;
+    overflow: hidden;
+    width: 47px;
 
     img {
       width: 100%;
@@ -48,49 +49,49 @@ $main-color: #ef9714;
   }
 
   &__name-container {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 4px;
   }
 
   &__name {
-    margin: 0;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 13px;
     color: #1e1e1e;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 13px;
+    margin: 0;
   }
 
   &__time {
-    font-weight: 500;
+    color: #999;
     font-size: 9px;
+    font-weight: 500;
     line-height: 13px;
     margin: 0;
-    color: #999999;
   }
 
   &__text {
-    font-weight: 500;
+    color: #999;
+    display: none;
     font-size: 12px;
+    font-weight: 500;
     line-height: 15px;
     margin: 0;
-    display: none;
-    color: #999999;
   }
 
   &__number {
-    margin: 0 0 0 auto;
-    border-radius: 100%;
-    background: $main-color;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 12px;
-    color: #ffffff;
     align-items: center;
+    background: $main-color;
+    border-radius: 100%;
+    color: #fff;
     display: none;
-    justify-content: center;
-    width: 20px;
+    font-size: 11px;
+    font-weight: 500;
     height: 20px;
+    justify-content: center;
+    line-height: 12px;
+    margin: 0 0 0 auto;
+    width: 20px;
   }
 }

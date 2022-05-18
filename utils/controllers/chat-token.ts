@@ -1,4 +1,4 @@
-import ChatTokenAPI from "../api/chat-token";
+import ChatTokenAPI from '../api/chat-token';
 
 interface ChatTokenModel {
   chatId: string;

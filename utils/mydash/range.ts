@@ -12,9 +12,9 @@ const baseRange = (start: number, end: number, step: number): Array<any> => {
 };
 
 export function range(
-  start: number = 0,
   end: number,
-  step: number
+  step: number,
+  start: number = 0
 ): Array<any> {
   if (end === undefined) {
     end = start;

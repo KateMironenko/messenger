@@ -1,7 +1,7 @@
-import HTTP from "./http";
-import { BaseAPI } from "./base-api";
+import HTTP from './http';
+import {BaseAPI} from './base-api';
 
-const userInfoAPIInstance = new HTTP("https://ya-praktikum.tech/api/v2/");
+const userInfoAPIInstance = new HTTP('https://ya-praktikum.tech/api/v2/');
 interface UserFormModel {
   chatId: string;
 }

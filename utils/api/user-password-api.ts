@@ -1,8 +1,8 @@
-import HTTP from "./http";
-import { BaseAPI } from "./base-api";
+import HTTP from './http';
+import {BaseAPI} from './base-api';
 
 const userInfoAPIInstance = new HTTP(
-  "https://ya-praktikum.tech/api/v2/user/password"
+  'https://ya-praktikum.tech/api/v2/user/password'
 );
 interface UserFormModel {
   oldPassword: string;
@@ -11,7 +11,7 @@ interface UserFormModel {
 
 class UserPasswordAPI extends BaseAPI {
   async update(data: UserFormModel) {
-    return userInfoAPIInstance.put("", { data: JSON.stringify(data) });
+    return userInfoAPIInstance.put('', {data: JSON.stringify(data)});
   }
 }
 

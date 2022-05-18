@@ -1,9 +1,9 @@
-import Block from "../../modules/block/Block";
-import { blockTemplate } from "./image.tmpl";
+import Block from '../../modules/block/Block';
+import {blockTemplate} from './image.tmpl';
 
 class Image extends Block {
   constructor(props: {}) {
-    super("div", props);
+    super(props, 'div');
   }
 
   render() {

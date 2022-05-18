@@ -1,6 +1,6 @@
-import "./chat.scss";
-import Block from "../../modules/block/Block";
-import { blockTemplate } from "./chat.tmpl";
+import './chat.scss';
+import Block from '../../modules/block/Block';
+import {blockTemplate} from './chat.tmpl';
 
 type ChatProps = {
   id: Number;
@@ -11,7 +11,7 @@ type ChatProps = {
 };
 export default class Chat extends Block<ChatProps> {
   constructor(props: ChatProps) {
-    super("div", props);
+    super(props, 'div');
   }
 
   render() {

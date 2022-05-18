@@ -1,14 +1,15 @@
-import { expect } from "chai";
-import { Templator } from "./Templator";
+import {expect} from 'chai';
+import {Templator} from './Templator';
 
-const { JSDOM } = require("jsdom");
+const {JSDOM} = require('jsdom');
 
-describe("Check Templator", () => {
+describe('Check Templator', () => {
   let templator: Templator;
   function createTemplate(template: string) {
     templator = new Templator(template);
   }
-  before(function () {
+
+  before(() => {
     const dom = new JSDOM(
       `<html>
     <head>
@@ -17,14 +18,14 @@ describe("Check Templator", () => {
       <main id="root"></main>
     </body>
   </html>`,
-      { url: "http://localhost:3000" }
+      {url: 'http://localhost:3000'}
     );
 
     global.window = dom.window;
     global.document = dom.window.document;
   });
 
-  it("Check template render without values", () => {
+  it('Check template render without values', () => {
     createTemplate(`<div class="file-form__input">
     <label for="avatar" class="file-form__input-lable">
     Select image</label></div>`);
@@ -33,22 +34,22 @@ describe("Check Templator", () => {
     Select image</label></div>`);
   });
 
-  it("Check template render with values", () => {
-    createTemplate(`<img class="{{ className }}" alt="{{ pictureName }}" />`);
+  it('Check template render with values', () => {
+    createTemplate('<img class="{{ className }}" alt="{{ pictureName }}" />');
     expect(
       templator.compile({
-        className: "class-name",
-        pictureName: "picture-name",
+        className: 'class-name',
+        pictureName: 'picture-name'
       })
-    ).to.eq(`<img class="class-name" alt="picture-name" />`);
+    ).to.eq('<img class="class-name" alt="picture-name" />');
   });
 
-  it("Check template onclick function render", () => {
-    createTemplate(`<button onclick="{{ click }}"></button>`);
+  it('Check template onclick function render', () => {
+    createTemplate('<button onclick="{{ click }}"></button>');
     expect(
       templator.compile({
-        click: () => {},
+        click: () => {}
       })
-    ).to.eq(`<button onclick="window.click()"></button>`);
+    ).to.eq('<button onclick="window.click()"></button>');
   });
 });

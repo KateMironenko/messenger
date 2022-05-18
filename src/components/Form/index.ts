@@ -1,7 +1,7 @@
-import Block from "../../modules/block/Block";
-import { blockTemplate } from "./form.tmpl";
-import Button from "../../components/Button/index";
-import Input from "../../components/Input/index";
+import Block from '../../modules/block/Block';
+import {blockTemplate} from './form.tmpl';
+import Button from '../../components/Button/index';
+import Input from '../../components/Input/index';
 
 type FormProps = {
   inputs: {
@@ -26,9 +26,11 @@ type FormProps = {
 };
 export default class Form extends Block<FormProps> {
   formSubmitData: Record<string, string>;
+
   _onSubmit: Function;
+
   constructor(props: FormProps) {
-    super("div", props);
+    super(props, 'div');
     this.formSubmitData = {};
     this._onSubmit = this.props.onSubmit;
   }
@@ -44,9 +46,9 @@ export default class Form extends Block<FormProps> {
         inputPlaceholder: inputProps.inputPlaceholder,
         inputLabel: inputProps.inputLabel,
         validations: inputProps.validations,
-        valid: inputProps.value ? true : false,
+        valid: Boolean(inputProps.value),
         value: inputProps.value,
-        inputDisabled: inputProps.inputDisabled,
+        inputDisabled: inputProps.inputDisabled
       });
       return input;
     });
@@ -59,35 +61,31 @@ export default class Form extends Block<FormProps> {
         click: (event: Event) => {
           event.preventDefault();
           this._onSend();
-        },
-      },
+        }
+      }
     });
     return this.compile(blockTemplate, {
       formClass: this.props.formClass,
       button: this.children.button,
-      inputs: this.children.inputs,
+      inputs: this.children.inputs
     });
   }
 
   _onSend(): void {
     if (
-      !this.children.inputs.some(function (el: any) {
-        return !el.props.valid;
-      })
+      !this.children.inputs.some((el: any) => !el.props.valid)
     ) {
       this.children.inputs.forEach((element: any) => {
-        this.formSubmitData[element.props.inputName] =
-          element.props.value.replace(
-            /[&<>'"]/g,
-            (tag: string) =>
-              ({
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                "'": "&#39;",
-                '"': "&quot;",
-              }[tag] || tag)
-          );
+        this.formSubmitData[element.props.inputName] = element.props.value.replace(
+          /[&<>'"]/g,
+          (tag: string) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '\'': '&#39;',
+            '"': '&quot;'
+          }[tag] || tag)
+        );
       });
       this._onSubmit(this.formSubmitData);
     }
